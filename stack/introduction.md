@@ -20,23 +20,35 @@ We're gonna use a tool called `radare2` to analyse the behaviour of the binary w
 $ r2 -d -A vuln
 ```
 
-The `-d` runs it while the `-A` performs analysis. We can decompile `main` into assembly with
+The `-d` runs it while the `-A` performs analysis. We can disassemble `main` with
 
 ```text
 s main; pdf
 ```
 
-`s main` seeks to main, while `pdf` stands for **P**rint **D**isassembly **F**unction.
+`s main` seeks \(moves \)to main, while `pdf` stands for **P**rint **D**isassembly **F**unction \(literally just disassembles it\).
 
-The call is at `0x080491bb`, so let's break there.
+```text
+0x080491ab      55             push ebp
+0x080491ac      89e5           mov ebp, esp
+0x080491ae      83e4f0         and esp, 0xfffffff0
+0x080491b1      e80d000000     call sym.__x86.get_pc_thunk.ax
+0x080491b6      054a2e0000     add eax, 0x2e4a
+0x080491bb      e8b2ffffff     call sym.unsafe
+0x080491c0      90             nop
+0x080491c1      c9             leave
+0x080491c2      c3             ret
+```
+
+The call to `unsafe` is at `0x080491bb`, so let's break there.
 
 ```text
 db 0x080491bb
 ```
 
-`db` is **d**ebug **b**reakpoint. Now run `dc` for **d**ebug **c**ontinue.
+`db` stands for **d**ebug **b**reakpoint, and just sets a breakpoint. A breakpoint is simply somewhere which, when reached, pauses the program for you to run other commands. Now we run `dc` for **d**ebug **c**ontinue; this basically just carries on running the file.
 
-It should break before it's called; let's analyse the top of the stack now:
+It should break before `unsafe` is called; let's analyse the top of the stack now:
 
 ```text
 [0x08049172]> pxw @ esp
@@ -44,7 +56,7 @@ It should break before it's called; let's analyse the top of the stack now:
 [...]
 ```
 
-The first address, `0xff984aec`, is the position; the `0xf7efe000` is the value. Let's move one more instruction with `ds`, **d**ebug **s**tep.
+The first address, `0xff984aec`, is the position; the `0xf7efe000` is the value. Let's move one more instruction with `ds`, **d**ebug **s**tep, and check the stack again.
 
 ```text
 [0x08049172]> pxw @ esp
@@ -74,7 +86,7 @@ Overflow me
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 ```
 
-Now let's read the value at the location the return pointer was at previously, which is `0xff984aec`.
+Now let's read the value at the location the return pointer was at previously, which as we saw was `0xff984aec`.
 
 ```text
 [0x080491aa]> pxw @ 0xff984aec
@@ -83,7 +95,7 @@ Now let's read the value at the location the return pointer was at previously, w
 
 Huh?
 
-It's quite simple - we inputted _more data than the program expected_, which resulted in us overwriting the saved return pointer. As a result, after the `ret`, the value popped into `eip` won't be in the previous function but rather `0x41414141`. Let's check with `ds`.
+It's quite simple - we inputted _more data than the program expected_, which resulted in us overwriting more of the stack than the developer expected. The saved return pointer is _also_ on the stack, meaning we managed to overwrite it. As a result, on the `ret`, the value popped into `eip` won't be in the previous function but rather `0x41414141`. Let's check with `ds`.
 
 ```text
 [0x080491aa]> ds
