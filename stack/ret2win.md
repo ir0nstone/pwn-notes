@@ -13,6 +13,8 @@ To do this, what do we need to know? Well, a couple things:
 * The padding _until_ we begin to overwrite the EIP
 * What value we want to overwrite EIP to
 
+{% file src="../.gitbook/assets/ret2win.zip" caption="ret2win" %}
+
 ### Finding the Padding
 
 This can be found using simple trial and error; if we send variable numbers of characters, we can use the `Segmentation Fault` message, in combination with radare2, to tell when we overwrote EIP. There is a better way to do it than simple brute force \(we'll cover this in the next post\), but it'll do for now.

@@ -12,6 +12,8 @@ In real exploits, it's not particularly likely that you will have a `win()` func
 
 The reason shellcode is successful is that Von Neumann architecture \(the architecture used in most computers today\) does not differentiate between **data** and **instructions** - it doesn't matter where or what you tell it to run, it will attempt to run it.  Therefore, even though our input is data, the computer _doesn't know that_ - and we can use that to our advantage.
 
+{% file src="../.gitbook/assets/shellcode.zip" caption="Shellcode" %}
+
 ### Disabling ASLR
 
 ASLR is a security technique, and while it is not specifically designed to combat shellcode, it involves randomising certain aspects of memory \(we will talk about it in much more detail later\). This randomisation can make shellcode exploits like the one we're about to do more less reliable, so we'll be disabling it for now.
