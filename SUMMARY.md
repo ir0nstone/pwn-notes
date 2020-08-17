@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Pwn Notes](README.md)
+* [Binary Exploitation Notes](README.md)
 * [concepts](concepts/README.md)
   * [PLT and GOT](concepts/plt_and_got.md)
 * [pwntools](pwntools/README.md)
