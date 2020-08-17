@@ -1,5 +1,5 @@
 ---
-description: An introduction to binary exploitation.
+description: An introduction to binary exploitation
 ---
 
 # Introduction
@@ -117,7 +117,7 @@ child stopped with signal 11
 [+] SIGNAL 11 errno=0 addr=0x41414141 code=1 ret=0
 ```
 
-`radare2` is very useful and prints out the address that causes it to crash.
+`radare2` is very useful and prints out the address that causes it to crash. If you cause the program to crash outside of a debugger, it will usually say `Segmentation Fault`, which _could_ mean a variety of things, but usually that you have overwritten EIP.
 
 Of course, it is perfectly possible to prevent people from writing more characters than expected when making your program, usually using _other_ C functions such as `fgets()`; `gets()` is intrinsically unsafe because it _doesn't check the length of the input with where it is writing it_, meaning that the presence of `gets()` is **always** something you should check out in a program. Additionally, however, it is perfectly possible to give `fgets()` the wrong parameters, meaning it _still_ takes in too many characters.
 
