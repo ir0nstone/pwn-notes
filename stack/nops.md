@@ -38,3 +38,9 @@ p.interactive()
 
 > It's probably worth mentioning that shellcode with NOPs is not failsafe; if you receive unexpected errors padding with NOPs but the shellcode worked before, try reducing the length of the nopsled as it may be tampering with other things on the stack
 
+Note that NOPs are only `\x90` in certain architectures, and if you need others you can use pwntools \(again\):
+
+```python
+nop = asm(shellcraft.nop())
+```
+
