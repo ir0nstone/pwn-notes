@@ -36,5 +36,5 @@ p.sendline(payload)
 p.interactive()
 ```
 
-> It's probably worth mentioning that shellcode with NOPs is not failsafe; if you receive unexpected errors padding with NOPs but the shellcode worked before, try reducing the length of the nopsled
+> It's probably worth mentioning that shellcode with NOPs is not failsafe; if you receive unexpected errors padding with NOPs but the shellcode worked before, try reducing the length of the nopsled as it may be tampering with other things on the stack
 
