@@ -21,4 +21,5 @@
   * [Logging and Context](pwntools/logging_and_context.md)
   * [Packing](pwntools/packing.md)
   * [ELF](pwntools/elf.md)
+* [Writeups](https://ironstone.gitbook.io/writeups/)
 
