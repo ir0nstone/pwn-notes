@@ -1,4 +1,4 @@
 # Binary Exploitation Notes
 
-This is a collection of things I have learnt, and I hope it is useful to you.
+A collection of my notes on Binary Exploitation, complete with binaries to show you the logic for the different techniques.
 
