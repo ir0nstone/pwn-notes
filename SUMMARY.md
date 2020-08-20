@@ -11,6 +11,7 @@
   * [No eXecute](stack/no-execute.md)
   * [Return-Oriented Programming](stack/return-oriented-programming.md)
   * [Calling Conventions](stack/calling-conventions.md)
+  * [Gadgets](stack/gadgets.md)
   * [Exploiting Calling Conventions](stack/exploiting-calling-conventions.md)
   * [ret2libc](stack/ret2libc.md)
   * [PLT and GOT](stack/plt_and_got.md)
