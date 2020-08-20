@@ -1,3 +1,7 @@
+---
+description: Bypassing ASLR
+---
+
 # PLT and GOT
 
 The PLT and GOT are sections within an ELF file that deal with a large portion of the **dynamic linking**. Dynamically linked binaries are more common than statically linked binary in CTFs. The purpose of **dynamic linking** is that binaries do not have to carry all the code necessary to run within them - this reduces their size substantially. Instead, they rely on system libraries \(especially `libc`, the C standard library\) to provide the bulk of the fucntionality.  
