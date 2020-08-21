@@ -19,7 +19,7 @@ The PLT \(**Procedure Linkage Table**\) and GOT \(**Global Offset Table**\) work
 
 When you call `puts()` in C and compile it as an ELF executable, it is not _actually_ `puts()` - instead, it gets compiled as `puts@plt`. Check it out in GDB:
 
-![](../.gitbook/assets/puts_plt.png)
+![](../../.gitbook/assets/puts_plt.png)
 
 Why does it do that?
 
