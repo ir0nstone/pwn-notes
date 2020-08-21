@@ -8,7 +8,7 @@ A ret2libc is based off the `system` function found within the C library. This f
 
 And that is the entire basis of it - passing `/bin/sh` as a parameter to `system`. Doesn't sound too bad, right?
 
-{% file src="../../.gitbook/assets/ret2libc \(1\).zip" caption="ret2libc" %}
+{% file src="../.gitbook/assets/ret2libc \(1\).zip" caption="ret2libc" %}
 
 ## Disabling ASLR
 
