@@ -6,7 +6,7 @@ description: A more in-depth look into parameters for 32-bit and 64-bit programs
 
 ## One Parameter
 
-{% file src="../.gitbook/assets/calling-conventions-one-param.zip" caption="Calling Conventions - One Parameter" %}
+{% file src="../../.gitbook/assets/calling-conventions-one-param.zip" caption="Calling Conventions - One Parameter" %}
 
 ## Source
 
@@ -175,7 +175,7 @@ Awesome.
 
 ## Multiple Parameters
 
-{% file src="../.gitbook/assets/calling-convention-multi-param.zip" caption="Calling Conventions - Multiple Parameters" %}
+{% file src="../../.gitbook/assets/calling-convention-multi-param.zip" caption="Calling Conventions - Multiple Parameters" %}
 
 ### Source
 
