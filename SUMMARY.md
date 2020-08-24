@@ -15,7 +15,7 @@
     * [Exploiting Calling Conventions](stack/return-oriented-programming/exploiting-calling-conventions.md)
     * [ret2libc](stack/return-oriented-programming/ret2libc.md)
   * [Format String Bug](stack/format-string.md)
-  * [Canaries](stack/canaries.md)
+  * [Stack Canaries](stack/canaries.md)
   * [ASLR](stack/aslr/README.md)
     * [PLT and GOT](stack/aslr/plt_and_got.md)
   * [PIE](stack/pie.md)

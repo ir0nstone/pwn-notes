@@ -60,6 +60,8 @@ The key here is that `printf` expects as many parameters as format string specif
 
 Surely if it's a bug in the code, the attacker can't do much, right? Well the real issue is when C code takes user-provided input and prints it out using `printf`.
 
+{% file src="../.gitbook/assets/fmtstr\_arb\_read.zip" caption="Format String" %}
+
 ```c
 #include <stdio.h>
 
@@ -204,6 +206,8 @@ Of course, `%s` will **also** stop at a null byte as strings in C are terminated
 Luckily C contains a rarely-used format specifier `%n`. This specifier takes in a pointer \(memory address\) and writes there the _number of characters written so far_. If we can control the input, we can control how many characters are written an also where we write them.
 
 Obviously, there is a _small_ flaw - to write, say, `0x8048000` to a memory address, we would have to write that many characters - and generally buffers aren't quite that big. Luckily there are other format string specifiers for that. I fully recommend you watch [this video](https://www.youtube.com/watch?v=t1LH9D5cuK4) to completely understand it, but let's jump into a basic binary.
+
+{% file src="../.gitbook/assets/fmtstr\_arb\_write.zip" caption="Format String - Arbitrary Write" %}
 
 ```c
 #include <stdio.h>
