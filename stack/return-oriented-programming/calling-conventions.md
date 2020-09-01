@@ -46,6 +46,7 @@ Let's open the binary up in radare2 and disassemble it.
 
 ```text
 $ r2 -d -A vuln-32
+$ s main; pdf
 
 0x080491ac      8d4c2404       lea ecx, [argv]
 0x080491b0      83e4f0         and esp, 0xfffffff0
