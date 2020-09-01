@@ -18,6 +18,7 @@
   * [Stack Canaries](stack/canaries.md)
   * [PIE](stack/pie/README.md)
     * [Pwntools, PIE and ROP](stack/pie/pwntools-pie-and-rop.md)
+    * [PIE Exploit](stack/pie/pie-exploit.md)
   * [ASLR](stack/aslr/README.md)
     * [PLT and GOT](stack/aslr/plt_and_got.md)
 * [pwntools](pwntools/README.md)
