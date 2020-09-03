@@ -22,5 +22,7 @@ We know that the **return pointer** is located on the stack - and much like a ca
 
 ## Double-Checking
 
-Due to the way PIE randomisation works, the base address of a PIE executable will **always** end in the hexadecimal characters `000`. This should _probably_ be the first thing you check if your exploit is not working as you intended.
+Due to the way PIE randomisation works, the base address of a PIE executable will **always** end in the hexadecimal characters `000`. This is because **pages** are the things being randomised in memory, which have a standard size of `0x1000`. Operating Systems keep track of page tables which point to each section of memory and define the permissions for each section, similar to segmentation.
+
+Checking the base address ends in `000` should _probably_ be the first thing you do if your exploit is not working as you expected.
 
