@@ -21,6 +21,7 @@
     * [PIE Bypass with Given Leak](stack/pie/pie-exploit.md)
     * [PIE Bypass](stack/pie/pie-bypass.md)
   * [ASLR](stack/aslr/README.md)
+    * [ASLR Bypass with Given Leak](stack/aslr/aslr-bypass-with-given-leak.md)
     * [PLT and GOT](stack/aslr/plt_and_got.md)
 * [pwntools](pwntools/README.md)
   * [Introduction](pwntools/introduction.md)

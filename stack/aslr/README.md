@@ -22,7 +22,7 @@ It's tempting to think that, as with PIE, we can simply format string for a libc
 
 When functions finish execution, they do not get removed from memory; instead, they just get ignored and overwritten. Chances are very high that you will grab one of these remnants with the format string. Different libc versions can act very differently during execution, so a value you just grabbed may not even _exist_ remotely, and if it does the offset will most likely be different \(different libcs have different sizes and therefore different offsets between functions\). Naturally, it's possible to get lucky, but you shouldn't really hope that the offsets remain the same.
 
-Instead, a more reliable way is reading the GOT entry of a specific function.
+Instead, a more reliable way is reading the [GOT entry of a specific function](https://ironstone.gitbook.io/notes/stack/aslr/plt_and_got).
 
 ## Double-Checking
 
