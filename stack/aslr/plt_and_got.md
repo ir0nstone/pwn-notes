@@ -11,7 +11,7 @@ For example, each ELF file will not carry their own version of `puts` compiled w
 
 Not quite.
 
-The problem with this approach is it requires `libc` to have a constant base address, i.e. be loaded in the same area of memory every time it's run. This is a security risk - in fact, there is a **kernel protection** specifically designed to randomise `libc` base every time a program gets run, called [_**ASLR**_](https://en.wikipedia.org/wiki/Address_space_layout_randomization). Hence the need for _dynamic_ linking. Due to the way ASLR works, these addresses need to be resolved _every time the binary is run_. Enter the PLT and GOT.
+The problem with this approach is it requires `libc` to have a constant base address, i.e. be loaded in the same area of memory every time it's run, but remember that [_**ASLR**_](https://en.wikipedia.org/wiki/Address_space_layout_randomization) _****_exists. Hence the need for _dynamic_ linking. Due to the way ASLR works, these addresses need to be resolved _every time the binary is run_. Enter the PLT and GOT.
 
 ## The PLT and GOT
 
