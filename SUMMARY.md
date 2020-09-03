@@ -23,6 +23,7 @@
   * [ASLR](stack/aslr/README.md)
     * [ASLR Bypass with Given Leak](stack/aslr/aslr-bypass-with-given-leak.md)
     * [PLT and GOT](stack/aslr/plt_and_got.md)
+    * [ret2plt ASLR bypass](stack/aslr/ret2plt-aslr-bypass.md)
 * [pwntools](pwntools/README.md)
   * [Introduction](pwntools/introduction.md)
   * [Processes and Communication](pwntools/processes_and_communication.md)
