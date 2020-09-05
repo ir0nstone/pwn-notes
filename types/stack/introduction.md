@@ -8,7 +8,7 @@ description: An introduction to binary exploitation
 
 When a new function is called, a memory address in the **calling** function is pushed to the stack - this way, the program knows where to return to once the called function finishes execution. Let's look at a basic binary to show this.
 
-{% file src="../.gitbook/assets/introduction.zip" caption="Introduction" %}
+{% file src="../../.gitbook/assets/introduction.zip" caption="Introduction" %}
 
 ## Analysis
 

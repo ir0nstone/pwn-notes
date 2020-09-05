@@ -12,7 +12,7 @@ In real exploits, it's not particularly likely that you will have a `win()` func
 
 The reason shellcode is successful is that Von Neumann architecture \(the architecture used in most computers today\) does not differentiate between **data** and **instructions** - it doesn't matter where or what you tell it to run, it will attempt to run it.  Therefore, even though our input is data, the computer _doesn't know that_ - and we can use that to our advantage.
 
-{% file src="../.gitbook/assets/shellcode.zip" caption="Shellcode" %}
+{% file src="../../.gitbook/assets/shellcode.zip" caption="Shellcode" %}
 
 ### Disabling ASLR
 

@@ -49,7 +49,7 @@ The source is very simple - it gives you a format string vulnerability, then a b
 
 #### 32-bit
 
-{% file src="../.gitbook/assets/canary-32.zip" caption="Canary - 32-bit" %}
+{% file src="../../.gitbook/assets/canary-32.zip" caption="Canary - 32-bit" %}
 
 First let's check there **is** a canary:
 
@@ -184,7 +184,7 @@ Same source, same approach, just 64-bit. Try it yourself before checking the sol
 Remember, in 64-bit format string goes to the relevant registers first and the addresses can fit 8 bytes each so the offset may be different.
 {% endhint %}
 
-{% file src="../.gitbook/assets/canary-64.zip" caption="Canary - 64-bit" %}
+{% file src="../../.gitbook/assets/canary-64.zip" caption="Canary - 64-bit" %}
 
 ### Bruteforcing the Canary
 

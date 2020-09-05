@@ -13,7 +13,7 @@ To do this, what do we need to know? Well, a couple things:
 * The padding _until_ we begin to overwrite the EIP
 * What value we want to overwrite EIP to
 
-{% file src="../.gitbook/assets/ret2win.zip" caption="ret2win" %}
+{% file src="../../.gitbook/assets/ret2win.zip" caption="ret2win" %}
 
 ### Finding the Padding
 

@@ -2,7 +2,7 @@
 
 ## The Source
 
-{% file src="../../.gitbook/assets/aslr.zip" caption="ASLR - 32-bit" %}
+{% file src="../../../.gitbook/assets/aslr.zip" caption="ASLR - 32-bit" %}
 
 ```c
 #include <stdio.h>
@@ -112,7 +112,7 @@ p.interactive()
 
 Try it yourself :\)
 
-{% file src="../../.gitbook/assets/aslr-64.zip" caption="ASLR - 64-bit" %}
+{% file src="../../../.gitbook/assets/aslr-64.zip" caption="ASLR - 64-bit" %}
 
 ## Using pwntools
 

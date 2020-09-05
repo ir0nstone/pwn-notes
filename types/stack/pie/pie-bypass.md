@@ -6,7 +6,7 @@ description: Using format string
 
 ## The Source
 
-{% file src="../../.gitbook/assets/pie-fmtstr.zip" caption="PIE + Format String - 32-bit" %}
+{% file src="../../../.gitbook/assets/pie-fmtstr.zip" caption="PIE + Format String - 32-bit" %}
 
 ```c
 #include <stdio.h>
@@ -147,7 +147,7 @@ print(p.clean().decode())
 
 Same deal, just 64-bit. Try it out :\)
 
-{% file src="../../.gitbook/assets/pie-fmtstr-64.zip" caption="PIE + Format String - 64-bit" %}
+{% file src="../../../.gitbook/assets/pie-fmtstr-64.zip" caption="PIE + Format String - 64-bit" %}
 
 
 
