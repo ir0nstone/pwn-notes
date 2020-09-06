@@ -29,6 +29,7 @@
     * [ret2plt ASLR bypass](types/stack/aslr/ret2plt-aslr-bypass.md)
 * [Heap](types/heap/README.md)
   * [heap0](types/heap/heap0.md)
+  * [heap1](types/heap/heap1.md)
 
 ## Other
 
