@@ -4,7 +4,7 @@
 
 This time around, there's no leak. You'll have to use the ret2plt technique explained previously. Feel free to have a go before looking further on.
 
-{% file src="../../../.gitbook/assets/ret2plt.zip" caption="ret2plt - 32-bit" %}
+{% file src="../../.gitbook/assets/ret2plt.zip" caption="ret2plt - 32-bit" %}
 
 ```c
 #include <stdio.h>
@@ -125,5 +125,5 @@ p.interactive()
 
 You know the drill - try the same thing for 64-bit. If you want, you can use pwntools' ROP capabilities - or, to make sure you understand calling conventions, be daring and do **both** :P
 
-{% file src="../../../.gitbook/assets/ret2plt-64.zip" caption="ret2plt - 64-bit" %}
+{% file src="../../.gitbook/assets/ret2plt-64.zip" caption="ret2plt - 64-bit" %}
 
