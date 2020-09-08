@@ -32,6 +32,7 @@
   * [RELRO](types/stack/relro.md)
   * [Reliable Shellcode](types/stack/reliable-shellcode/README.md)
     * [ROP and Shellcode](types/stack/reliable-shellcode/rop-and-shellcode.md)
+    * [Using RSP](types/stack/reliable-shellcode/using-rsp.md)
   * [One Gadgets and Malloc Hook](types/stack/one-gadgets-and-malloc-hook.md)
   * [Unusual Techniques](types/stack/unusual-techniques/README.md)
     * [ret2csu](types/stack/unusual-techniques/ret2csu.md)

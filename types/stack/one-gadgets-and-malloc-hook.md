@@ -34,5 +34,5 @@ Wait a sec - isn't `malloc()` a _heap_ function? How will we use it on the stack
 
 This is a hard technique to give you practise on, due to the fact that your `libc` version may not even have working `one_gadgets`. As such, feel free to play around with the GOT overwrite binary and see if you can get a `one_gadget` working.
 
-Remember, the value given by the `one_gadget` tool needs to be added to libc base.
+Remember, the value given by the `one_gadget` tool needs to be added to libc base as it's just an offset.
 
