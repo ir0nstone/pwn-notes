@@ -42,8 +42,9 @@
   * [Introduction to the Heap](types/heap/introduction-to-the-heap.md)
   * [Chunks](types/heap/chunks.md)
   * [Bins](types/heap/bins.md)
-  * [heap0](types/heap/heap0.md)
-  * [heap1](types/heap/heap1.md)
+  * [Heap Overflow](types/heap/heap-overflow/README.md)
+    * [heap0](types/heap/heap-overflow/heap0.md)
+    * [heap1](types/heap/heap-overflow/heap1.md)
 
 ## Other
 

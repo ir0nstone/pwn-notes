@@ -90,13 +90,13 @@ We'll break right after the strcpy and see how it looks.
 hit breakpoint at: 0x400762
 ```
 
-![The Expected Two Chunks](../../.gitbook/assets/image%20%285%29.png)
+![The Expected Two Chunks](../../../.gitbook/assets/image%20%285%29.png)
 
 If we want, we can check the contents.
 
-![Chunk with our input](../../.gitbook/assets/image%20%282%29.png)
+![Chunk with our input](../../../.gitbook/assets/image%20%282%29.png)
 
-![The Chunk with the Function Address](../../.gitbook/assets/image%20%283%29.png)
+![The Chunk with the Function Address](../../../.gitbook/assets/image%20%283%29.png)
 
 So, we can see that the function address is there, after our input in memory. Let's work out the offset.
 
@@ -121,7 +121,7 @@ Let's break **on** and **after** the `strcpy`. That way we can check the locatio
 hit breakpoint at: 0x40075d
 ```
 
-![The chunk before the strcpy](../../.gitbook/assets/image.png)
+![The chunk before the strcpy](../../../.gitbook/assets/image.png)
 
 So, the chunk with the pointer is located at `0x2493060`. Let's continue until the next breakpoint.
 
@@ -130,11 +130,11 @@ So, the chunk with the pointer is located at `0x2493060`. Let's continue until t
 hit breakpoint at: 0x400762
 ```
 
-![Corrupted](../../.gitbook/assets/image%20%281%29.png)
+![Corrupted](../../../.gitbook/assets/image%20%281%29.png)
 
 radare2 is nice enough to tell us we corrupted the data. Let's analyse the chunk again.
 
-![](../../.gitbook/assets/image%20%284%29.png)
+![](../../../.gitbook/assets/image%20%284%29.png)
 
 Notice we overwrote the `size` field, so the chunk is much bigger. But now we can easily use the first value to work out the offset \(we could also, knowing the location, have done `pxq @ 0x02493060`\).
 

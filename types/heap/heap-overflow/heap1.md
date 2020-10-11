@@ -61,11 +61,11 @@ Let's break on and after the first `strcpy`.
 $ r2 -d -A heap1 AAAA BBBB
 ```
 
-![](../../.gitbook/assets/image%20%287%29.png)
+![](../../../.gitbook/assets/image%20%287%29.png)
 
 As we expected, we have two pairs of `heapStructure` and `name` chunks. We know the `strcpy` will be copying into wherever `name` points, so let's read the contents of the first `heapStructure`. Maybe this will give us a clue.
 
-![](../../.gitbook/assets/image%20%288%29.png)
+![](../../../.gitbook/assets/image%20%288%29.png)
 
 Look! The `name` pointer points to the `name` chunk! You can see the value `0x602030` being stored.
 
@@ -108,7 +108,7 @@ $ r2 -d -A heap1 AAABAA... 0000
 
 Break on and after the `strcpy` again and analyse the second chunk's `name` pointer.
 
-![](../../.gitbook/assets/image%20%286%29.png)
+![](../../../.gitbook/assets/image%20%286%29.png)
 
 The pointer is originally at `0x8d9050`; once the strcpy occurs, the value there is `0x41415041414f4141`.
 
