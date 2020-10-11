@@ -42,9 +42,11 @@
   * [Introduction to the Heap](types/heap/introduction-to-the-heap.md)
   * [Chunks](types/heap/chunks.md)
   * [Bins](types/heap/bins.md)
+  * [Chunk Allocation and Reallocation](types/heap/chunk-allocation-and-reallocation.md)
   * [Heap Overflow](types/heap/heap-overflow/README.md)
     * [heap0](types/heap/heap-overflow/heap0.md)
     * [heap1](types/heap/heap-overflow/heap1.md)
+  * [Use-After-Free](types/heap/use-after-free.md)
 
 ## Other
 

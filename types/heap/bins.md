@@ -32,3 +32,7 @@ The first 32 bins have a range of 64 bytes:
 
 Like small chunks, large chunks can coalesce together before ending up in the unsorted bin.
 
+### Head and Tail
+
+Each bin is represented by two values, the `HEAD` and `TAIL`. As it sounds, `HEAD` is at the top and `TAIL` at the bottom. Most insertions happen at the `HEAD`, so in LIFO structures \(such as the fastbins\) reallocation occurs there too, whereas in FIFO structures \(such as small bins\) reallocation occurs at the `TAIL`. For fastbins, the `TAIL` is `null`.
+
