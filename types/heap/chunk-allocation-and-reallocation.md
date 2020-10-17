@@ -70,3 +70,10 @@ As you can see, the chunk `a` gets reassigned to chunk `f`, `b` to `e` and `c` t
 
 So, if we `free()` a chunk, there's a good chance our next `malloc()` - if it's of the same size - will use the same chunk.
 
+## Unsorted Bins
+
+When a non-fast chunk is freed, it gets put into the Unsorted Bin. When new chunks are requested, glibc looks at the unsorted bin.
+
+* If the requested size is equal to the size of the chunk in the bin, return the chunk
+* If it's smaller, split the chunk in the bin in two and return a portion of the correct size
+

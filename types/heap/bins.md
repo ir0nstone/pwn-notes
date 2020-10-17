@@ -12,7 +12,7 @@ Addition and deletion occur in a Last-In-First-Out \(LIFO\) manner.
 
 There is only one of these. When small and large chunks are freed, they end of in this bin to speed up allocation and deallocation requests.
 
-Essentially, this bin gives the chunks one last shot at being used. Future malloc requests, if smaller than the chunk currently in the bin, split up that chunk into two pieces and return one of them, speeding up the process. If the chunk requested is **larger**, then the chunks in this bin get moved to the respective Small/Large bins.
+Essentially, this bin gives the chunks one last shot at being used. Future malloc requests, if smaller than a chunk currently in the bin, split up that chunk into two pieces and return one of them, speeding up the process - this is the [Last Remainder Chunk](https://ir0nstone.gitbook.io/notes/types/heap/chunks#last-remainder-chunk). If the chunk requested is **larger**, then the chunks in this bin get moved to the respective Small/Large bins.
 
 ### Small Bins
 
