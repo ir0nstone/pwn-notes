@@ -1,6 +1,10 @@
 # Chunks
 
-A "chunk" is a **region of the heap**. When the programmer uses `malloc()`, a chunk is returned. The [general structure of a chunk ](https://code.woboq.org/userspace/glibc/malloc/malloc.c.html)is as follows:
+A "chunk" is a **region of the heap**. 
+
+Each chunk contains **metadata** \(such as the size\) and the **data**.
+
+When the programmer uses `malloc()`, a chunk is returned. The [general structure of a chunk ](https://code.woboq.org/userspace/glibc/malloc/malloc.c.html)is as follows:
 
 ```c
 struct malloc_chunk {
