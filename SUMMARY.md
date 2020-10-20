@@ -57,5 +57,4 @@
   * [Packing](other/pwntools/packing.md)
   * [ELF](other/pwntools/elf.md)
   * [ROP](other/pwntools/rop.md)
-* [Writeups](https://ironstone.gitbook.io/writeups/)
 
