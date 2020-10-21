@@ -18,6 +18,8 @@ Essentially, this bin gives the chunks one last shot at being used. Future mallo
 
 There are 62 small bins of sizes 16, 24, ... , 504 bytes and, like fast bins, chunks of the same size are stored in the same bins. Small bins are **doubly-linked** and allocation and deallocation is FIFO.
 
+The purpose of the `FD` and `BK` pointers as we saw before are to points to the chunks ahead and behind in the bin.
+
 Before ending up in the unsorted bin, contiguous small chunks \(small chunks next to each other in memory\) can **coalesce**, meaning their sizes combine and become a bigger chunk.
 
 ### Large Bins
