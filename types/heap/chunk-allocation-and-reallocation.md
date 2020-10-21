@@ -52,17 +52,17 @@ You can see the behaviour here. This specific fastbin progresses as follows:
 
 ```text
 ### a/b/c allocated
-HEAD -> TAIL
+HEAD
 ### a freed
-HEAD -> a -> TAIL
+HEAD -> a
 ### b freed
-HEAD -> b -> a -> TAIL
+HEAD -> b -> a
 ### c freed
-HEAD -> c -> b -> a -> TAIL
+HEAD -> c -> b -> a
 ### d allocated
-HEAD -> b -> a -> TAIL
+HEAD -> b -> a
 ### e allocated
-HEAD -> a -> TAIL
+HEAD -> a
 ### f allocated
 ```
 
