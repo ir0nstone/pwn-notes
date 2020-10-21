@@ -50,21 +50,7 @@ f: 0x2292010
 
 You can see the behaviour here. This specific fastbin progresses as follows:
 
-```text
-### a/b/c allocated
-HEAD
-### a freed
-HEAD -> a
-### b freed
-HEAD -> b -> a
-### c freed
-HEAD -> c -> b -> a
-### d allocated
-HEAD -> b -> a
-### e allocated
-HEAD -> a
-### f allocated
-```
+![](../../.gitbook/assets/image%20%2810%29.png)
 
 As you can see, the chunk `a` gets reassigned to chunk `f`, `b` to `e` and `c` to `d`.
 

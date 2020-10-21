@@ -12,13 +12,13 @@ The flags `A`, `M` and `P` have special uses. `P` is the `PREV_INUSE` flag, whic
 
 `prev_size` is set if the previous adjacent chunk is **free**, as calculated by `P`. If it is not, the heap _saves space_ and `prev_size` is part of the **previous chunk's user data**. If it is, then `prev_size` stores the size of the previous chunk.
 
-![](../../../.gitbook/assets/image%20%2811%29.png)
+![](../../../.gitbook/assets/image%20%2812%29.png)
 
 ## Free Chunks
 
 A free chunk looks a bit different:
 
-![](../../../.gitbook/assets/image%20%2814%29.png)
+![](../../../.gitbook/assets/image%20%2815%29.png)
 
 The first part is the same, but `FD` and `BK` pointers have been added. This is for the purpose of sorting them into **bins**, which we will come onto soon.
 
