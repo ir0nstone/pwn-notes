@@ -62,3 +62,8 @@
   * [ELF](other/pwntools/elf.md)
   * [ROP](other/pwntools/rop.md)
 
+---
+
+* [HackTheBox Writeups](https://ir0nstone.gitbook.io/hackthebox/)
+* [CTF Writeups](https://ir0nstone.gitbook.io/writeups/)
+
