@@ -51,6 +51,7 @@
   * [Double-Free](types/heap/double-free/README.md)
     * [Exploiting a Double-Free](types/heap/double-free/exploiting-a-double-free.md)
     * [Double-Free Protections](types/heap/double-free/double-free-protections.md)
+  * [Unlink Exploit](types/heap/unlink-exploit.md)
 
 ## Other
 
