@@ -26,7 +26,7 @@ The `-d` runs it while the `-A` performs analysis. We can disassemble `main` wit
 s main; pdf
 ```
 
-`s main` seeks \(moves \)to main, while `pdf` stands for **P**rint **D**isassembly **F**unction \(literally just disassembles it\).
+`s main` seeks \(moves\) to main, while `pdf` stands for **P**rint **D**isassembly **F**unction \(literally just disassembles it\).
 
 ```text
 0x080491ab      55             push ebp
@@ -46,17 +46,16 @@ The call to `unsafe` is at `0x080491bb`, so let's break there.
 db 0x080491bb
 ```
 
-`db` stands for **d**ebug **b**reakpoint, and just sets a breakpoint. A breakpoint is simply somewhere which, when reached, pauses the program for you to run other commands. Now we run `dc` for **d**ebug **c**ontinue; this basically just carries on running the file.
+`db` stands for **d**ebug **b**reakpoint, and just sets a breakpoint. A breakpoint is simply somewhere which, when reached, pauses the program for you to run other commands. Now we run `dc` for **d**ebug **c**ontinue; this just carries on running the file.
 
 It should break before `unsafe` is called; let's analyse the top of the stack now:
 
 ```text
 [0x08049172]> pxw @ esp
-0xff984af0 0xf7efe000 [...]
-[...]
+0xff984af0 0xf7efe000         [...]
 ```
 
-The first address, `0xff984aec`, is the position; the `0xf7efe000` is the value. Let's move one more instruction with `ds`, **d**ebug **s**tep, and check the stack again.
+The first address, `0xff984af0`, is the position; the `0xf7efe000` is the value. Let's move one more instruction with `ds`, **d**ebug **s**tep, and check the stack again.
 
 ```text
 [0x08049172]> pxw @ esp
@@ -73,11 +72,11 @@ Huh, something's been pushed onto the stack - the value `0x080491c0`. This looks
 [...]
 ```
 
-Look at that - it's the instruction _after_ the call to `unsafe`. Why? This is how the program knows _where to return to after unsafe has finished_. Awesome.
+Look at that - it's the instruction _after_ the call to `unsafe`. Why? This is how the program knows _where to return to after `unsafe()` has finished_.
 
 ## Weaknesses
 
-But as we're interested in binary exploitation, let's see how we can possibly break this. First, let's disassemble unsafe and break on the `ret` instruction; `ret` is the equivalent of `pop eip`, which will get the saved return pointer we just analysed on the stack into the `eip` register. Then let's continue and spam a bunch of characters into the input and see how that could affect it.
+But as we're interested in binary exploitation, let's see how we can possibly break this. First, let's disassemble `unsafe` and break on the `ret` instruction; `ret` is the equivalent of `pop eip`, which will get the saved return pointer we just analysed on the stack into the `eip` register. Then let's continue and spam a bunch of characters into the input and see how that could affect it.
 
 ```text
 [0x08049172]> db 0x080491aa
@@ -119,13 +118,15 @@ child stopped with signal 11
 
 `radare2` is very useful and prints out the address that causes it to crash. If you cause the program to crash outside of a debugger, it will usually say `Segmentation Fault`, which _could_ mean a variety of things, but usually that you have overwritten EIP.
 
-Of course, it is perfectly possible to prevent people from writing more characters than expected when making your program, usually using _other_ C functions such as `fgets()`; `gets()` is intrinsically unsafe because it _doesn't check the length of the input with where it is writing it_, meaning that the presence of `gets()` is **always** something you should check out in a program. Additionally, however, it is perfectly possible to give `fgets()` the wrong parameters, meaning it _still_ takes in too many characters.
+{% hint style="info" %}
+Of course, you can prevent people from writing more characters than expected when making your program, usually using _other_ C functions such as `fgets()`; `gets()` is **intrinsically unsafe** because it _doesn't check the length of the input_, meaning that the presence of `gets()` is **always** something you should check out in a program. It is **also** possible to give `fgets()` the wrong parameters, meaning it _still_ takes in too many characters.
+{% endhint %}
 
 ## Summary
 
 When a function calls another function, it
 
-* pushes a return pointer to the stack so the called function knows where to return
+* pushes a **return pointer** to the stack so the called function knows where to return
 * when the called function finishes execution, it pops it off the stack again
 
 Because this value is saved on the stack, just like our local variables, if we write _more_ characters than the program expects, we can overwrite the value and redirect code execution to wherever we wish. Functions such as `fgets()` can prevent such easy overflow, but you should check how much is actually being read.
