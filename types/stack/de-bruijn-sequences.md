@@ -4,7 +4,7 @@ description: The better way to calculate offsets
 
 # De Bruijn Sequences
 
-De Bruijn sequences of order `n` is simply a sequence where no string of `n` characters is repeated. This makes finding the offset until EIP much simpler - we can just pass in a De Bruijn sequence, get the value within EIP and find the **one possible match** within the sequence to calculate the offset. Let's do this on the  **ret2win** binary.
+De Bruijn sequences of order `n` is simply a sequence where no string of `n` characters is repeated. This makes finding the offset until EIP much simpler - we can just pass in a De Bruijn sequence, get the value within EIP and find the **one possible match** within the sequence to calculate the offset. Let's do this on the **ret2win** binary.
 
 ### Generating the Pattern
 

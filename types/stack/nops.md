@@ -8,6 +8,10 @@ NOP \(no operation\) instructions do exactly what they sound like: _nothing_. Wh
 
 In intel x86 assembly, NOP instructions are `\x90`.
 
+{% hint style="info" %}
+The NOP instruction actually stands for `XCHG EAX, EAX`, which does effectively nothing. You can read a bit more about it [on this StackOverflow question](https://stackoverflow.com/questions/25008772/whats-the-difference-between-the-x86-nop-and-fnop-instructions/25053039).
+{% endhint %}
+
 ### Updating our Shellcode Exploit
 
 We can make slight changes to our exploit to do two things:
@@ -15,7 +19,9 @@ We can make slight changes to our exploit to do two things:
 * Add a large number of NOPs on the left
 * Adjust our return pointer to point at the middle of the NOPs rather than the buffer start
 
-> Make sure ASLR is still disabled. If you have to disable it again, you may have to readjust your previous exploit as the buffer location my be different.
+{% hint style="warning" %}
+Make sure ASLR is still disabled. If you have to disable it again, you may have to readjust your previous exploit as the buffer location my be different.
+{% endhint %}
 
 ```python
 from pwn import *
@@ -36,9 +42,11 @@ p.sendline(payload)
 p.interactive()
 ```
 
-> It's probably worth mentioning that shellcode with NOPs is not failsafe; if you receive unexpected errors padding with NOPs but the shellcode worked before, try reducing the length of the nopsled as it may be tampering with other things on the stack
+{% hint style="warning" %}
+It's probably worth mentioning that shellcode with NOPs is not failsafe; if you receive unexpected errors padding with NOPs but the shellcode worked before, try reducing the length of the nopsled as it may be tampering with other things on the stack
+{% endhint %}
 
-Note that NOPs are only `\x90` in certain architectures, and if you need others you can use pwntools \(again\):
+Note that NOPs are only `\x90` in certain architectures, and if you need others you can use pwntools:
 
 ```python
 nop = asm(shellcraft.nop())

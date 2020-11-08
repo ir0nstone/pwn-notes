@@ -8,25 +8,29 @@ In real exploits, it's not particularly likely that you will have a `win()` func
 
 **Shellcode** is essentially **assembly instructions**, except we input them into the binary; once we input it, we overwrite the return pointer to hijack code execution and point at our own instructions!
 
-> Note: I promise you can trust me but you should never _ever_ run shellcode without knowing what it does. Pwntools is safe and has almost all the shellcode you will ever need.
+{% hint style="danger" %}
+I promise you can trust me but you should never _ever_ run shellcode without knowing what it does. Pwntools is safe and has almost all the shellcode you will ever need.
+{% endhint %}
 
-The reason shellcode is successful is that Von Neumann architecture \(the architecture used in most computers today\) does not differentiate between **data** and **instructions** - it doesn't matter where or what you tell it to run, it will attempt to run it.  Therefore, even though our input is data, the computer _doesn't know that_ - and we can use that to our advantage.
+The reason shellcode is successful is that [Von Neumann architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture) \(the architecture used in most computers today\) does not differentiate between **data** and **instructions** - it doesn't matter where or what you tell it to run, it will attempt to run it.  Therefore, even though our input is data, the computer _doesn't know that_ - and we can use that to our advantage.
 
 {% file src="../../.gitbook/assets/shellcode.zip" caption="Shellcode" %}
 
 ### Disabling ASLR
 
-ASLR is a security technique, and while it is not specifically designed to combat shellcode, it involves randomising certain aspects of memory \(we will talk about it in much more detail later\). This randomisation can make shellcode exploits like the one we're about to do more less reliable, so we'll be disabling it for now.
+ASLR is a security technique, and while it is not specifically designed to combat shellcode, it involves randomising certain aspects of memory \(we will talk about it in much more detail later\). This randomisation can make shellcode exploits like the one we're about to do more less reliable, so we'll be disabling it for now [using this](https://askubuntu.com/questions/318315/how-can-i-temporarily-disable-aslr-address-space-layout-randomization).
 
 ```text
 echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
 ```
 
-> Again, you should never run commands if you don't know what they do.
+{% hint style="danger" %}
+Again, you should never run commands if you don't know what they do
+{% endhint %}
 
 ### Finding the Buffer in Memory
 
-Let's debug `vuln` using `radare2` and work out where in memory the buffer starts; this is where we want to point the return pointer to.
+Let's debug `vuln()` using `radare2` and work out where in memory the buffer starts; this is where we want to point the return pointer to.
 
 ```text
 $ r2 -d -A vuln
@@ -69,11 +73,11 @@ Overflow me
 312
 ```
 
-Wehey the padding is 312 bytes!
+The padding is 312 bytes.
 
 ### Putting it all together
 
-In order for the shellcode to be correct, we're going to set `context.binary` to our binary; this grabs stuff like the arch, os and bits and enables pwntools to provide us with accurate shellcode.
+In order for the shellcode to be correct, we're going to set `context.binary` to our binary; this grabs stuff like the arch, OS and bits and enables pwntools to provide us with working shellcode.
 
 ```python
 from pwn import *
@@ -83,7 +87,9 @@ context.binary = ELF('./vuln')
 p = process()
 ```
 
-> Note: We can use just `process()` because once `context.binary` is set it is assumed to use that process
+{% hint style="info" %}
+We can use just `process()` because once `context.binary` is set it is assumed to use that process
+{% endhint %}
 
 Now we can use pwntools' awesome shellcode functionality to make it _incredibly_ simple.
 
@@ -103,7 +109,9 @@ p.sendline(payload)
 p.interactive()
 ```
 
-> If you're getting an EOFError, print out the shellcode and try to find it in memory - the stack address may be wrong
+{% hint style="warning" %}
+If you're getting an `EOFError`, print out the shellcode and try to find it in memory - the stack address may be wrong
+{% endhint %}
 
 ```text
 $ python3 exploit.py

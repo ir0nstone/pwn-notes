@@ -1,5 +1,5 @@
 ---
-description: 'One of the most basic binexp challenges of all, the ret2win'
+description: One of the most basic binexp challenges of all
 ---
 
 # ret2win
@@ -14,7 +14,7 @@ To do this, what do we need to know? Well, a couple things:
 * What value we want to overwrite EIP to
 
 {% hint style="warning" %}
-When I say "overwrite EIP", I usually mean overwrite the saved return pointer that gets popped into EIP. The EIP register is not located on the stack, so it is not overwritten directly.
+When I say "overwrite EIP", I mean overwrite the saved return pointer that gets popped into EIP. The EIP register is not located on the stack, so it is not overwritten directly.
 {% endhint %}
 
 {% file src="../../.gitbook/assets/ret2win.zip" caption="ret2win" %}
