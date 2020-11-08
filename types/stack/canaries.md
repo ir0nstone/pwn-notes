@@ -8,7 +8,9 @@ Stack Canaries are very simple - at the beginning of the function, a random valu
 
 If they are not, the attacker attempted to overflow to control the return pointer and the program crashes, often with a `***stack smashing detected***` error message.
 
-> Note: On Linux, stack canaries end in `00`. This is so that they null-terminate any strings in case you make a mistake when using print functions.
+{% hint style="info" %}
+On Linux, stack canaries end in `00`. This is so that they null-terminate any strings in case you make a mistake when using print functions, but it also makes them much easier to spot.
+{% endhint %}
 
 ## Bypassing Canaries
 
@@ -166,8 +168,8 @@ canary = int(p.recvline(), 16)
 log.success(f'Canary: {hex(canary)}')
 
 payload = b'A' * 64
-payload += p32(canary) # overwrite canary with original value - stop from triggering
-payload += b'A' * 12
+payload += p32(canary)  # overwrite canary with original value to not trigger
+payload += b'A' * 12    # pad to return pointer
 payload += p32(0x08049245)
 
 p.clean()
@@ -190,5 +192,5 @@ Remember, in 64-bit format string goes to the relevant registers first and the a
 
 This _is_ possible on 32-bit, and sometimes unavoidable. It's not, however, feasible on 64-bit.
 
-As you can expect, the general idea is to run the process loads and load of times with random canary values until you get a hit, which you can differentiate by the presence of a known plaintext, e.g. `flag{`. this can take ages to run and is not a particularly interesting challenge, frankly.
+As you can expect, the general idea is to run the process loads and load of times with random canary values until you get a hit, which you can differentiate by the presence of a known plaintext, e.g. `flag{` and this can take ages to run and is frankly not a particularly interesting challenge.
 

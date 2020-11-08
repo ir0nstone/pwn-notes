@@ -162,7 +162,9 @@ Hohoho, it's different. As we mentioned before, the parameter gets moved to `rdi
 dr rdi
 ```
 
-> Note: just `dr` will display all registers
+{% hint style="info" %}
+Just `dr` will display all registers
+{% endhint %}
 
 ```text
 [0x00401153]> db sym.vuln 
@@ -173,6 +175,10 @@ hit breakpoint at: 401122
 ```
 
 Awesome.
+
+{% hint style="info" %}
+Registers are used for parameters, but the return address is still pushed onto the stack and in ROP is placed right after the function address
+{% endhint %}
 
 ## Multiple Parameters
 
@@ -269,5 +275,9 @@ movabs rdi, 0xdeadbeefc0ded00d
 call sym.vuln
 ```
 
-> Note: `movabs` can be used to encode the `mov` instruction for 64-bit instructions - treat it as if it's a `mov`.
+{% hint style="info" %}
+`movabs` can be used to encode the `mov` instruction for 64-bit instructions - treat it as if it's a `mov`.
+{% endhint %}
+
+
 

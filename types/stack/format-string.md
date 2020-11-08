@@ -135,7 +135,9 @@ ABCD|%6$p
 ABCD|0x44434241
 ```
 
-> Note: `%p` is a pointer; generally, it returns the same as `%x` just precedes it with a `0x` which makes it stand out more
+{% hint style="info" %}
+`%p` is a pointer; generally, it returns the same as `%x` just precedes it with a `0x` which makes it stand out more
+{% endhint %}
 
 As we can see, we're reading the value we inputted. Let's write a quick pwntools script that write the location of the ELF file and reads it with `%s` - if all goes well, it should read the first bytes of the file, which is always `\x7fELF`. Start with the basics:
 

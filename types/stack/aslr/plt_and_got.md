@@ -68,9 +68,13 @@ payload = flat(
 )
 ```
 
+{% hint style="info" %}
+`flat()` packs all the values you give it with `p32()` and `p64()` \(depending on context\) and concatenates them, meaning you don't have to write the packing functions out all the time
+{% endhint %}
+
 ### %s format string
 
-This has the same general theory but is useful when you have limited stack space or a ROP chain would alter the stack in such a way to complicate future payloads.
+This has the same general theory but is useful when you have limited stack space or a ROP chain would alter the stack in such a way to complicate future payloads, for example when stack pivoting.
 
 ```python
 payload = p32(elf.got['puts'])      # p64() if 64-bit
@@ -95,5 +99,5 @@ puts_leak = u32(p.recv(4))          # 4 bytes because it's 32-bit
 * The PLT resolves actual locations in `libc` of functions you use and stores them in the GOT
   * Next time that function is called, it jumps to the GOT and resumes execution there
 * Calling `function@plt` is equivalent to calling the function itself
-* An arbitrary read enables you to read the GOT and thus bypass ASLR by calculatin `libc` base
+* An arbitrary read enables you to read the GOT and thus bypass ASLR by calculating `libc` base
 

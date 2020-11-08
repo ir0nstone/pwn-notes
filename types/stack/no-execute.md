@@ -8,7 +8,9 @@ As you can expect, programmers were hardly pleased that people could inject thei
 
 To get around NX, exploit developers have to leverage a technique called **ROP**, Return-Oriented Programming.
 
-> The Windows version of NX is DEP, which stands for **D**ata **E**xecution **P**revention
+{% hint style="info" %}
+The Windows version of NX is DEP, which stands for **D**ata **E**xecution **P**revention
+{% endhint %}
 
 #### Checking for NX
 

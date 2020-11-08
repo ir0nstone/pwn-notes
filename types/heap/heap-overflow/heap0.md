@@ -102,7 +102,7 @@ So, we can see that the function address is there, after our input in memory. Le
 
 ### Working out the Offset
 
-Since we want to work out how many characters we need until the pointer, I'll just use a De Bruijn Sequence.
+Since we want to work out how many characters we need until the pointer, I'll just use a [De Bruijn Sequence](../../stack/de-bruijn-sequences.md).
 
 ```text
 $ ragg2 -P 200 -r
