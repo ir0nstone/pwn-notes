@@ -65,13 +65,9 @@ binsh = next(libc.search(b'/bin/sh\x00'))
 
 ## elf.address
 
-`elf.address` is the base address of the binary. If the binary does not have PIE enabled, then it's absolute; if it does, all addresses are relative \(they pretend the binary base is `0x0`\).  
-  
+`elf.address` is the base address of the binary. If the binary does not have PIE enabled, then it's absolute; if it does, all addresses are relative \(they pretend the binary base is `0x0`\).
 
-
-Setting the `address` value automatically updates the address of `symbols`, `got`, `plt` and `functions`, which makes it invaluable when adjusting for PIE or ASLR.  
-  
-
+Setting the `address` value automatically updates the address of `symbols`, `got`, `plt` and `functions`, which makes it invaluable when adjusting for PIE or ASLR.
 
 Let's say you leak the base address of `libc` while ASLR is enabled; with pwntools, it's ridiculously easy to get the location of `system` for a `ret2libc`.
 
