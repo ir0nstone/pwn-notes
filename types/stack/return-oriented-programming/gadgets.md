@@ -10,17 +10,11 @@ Gadgets are small snippets of code followed by a `ret` instruction, e.g. `pop rd
 
 Let's for a minute pretend the stack looks like this during the execution of a `pop rdi; ret` gadget.
 
-```text
-rsp>    0x00000000000010
-        0x00005655576724
-```
+![](../../../.gitbook/assets/image%20%2819%29.png)
 
 What happens is fairly obvious - `0x10` gets popped into `rdi` as it is at the top of the stack during the `pop rdi`. Once the `pop` occurs, `rsp` moves:
 
-```text
-        0x00000000000010
-rsp>    0x00005655576724
-```
+![](../../../.gitbook/assets/image%20%2821%29.png)
 
 And since `ret` is equivalent to `pop rip`, `0x5655576724` gets moved into `rip`. Note how the stack is laid out for this.
 
@@ -30,30 +24,15 @@ When we overwrite the return pointer, we overwrite the value pointed at by `rsp`
 
 Let's say that we want to exploit a binary to jump to a `pop rdi; ret` gadget, pop `0x100` into `rdi` then jump to `flag()`. Let's step-by-step the execution.
 
-```text
-        <padding>                                            [...]
-rsp>    gadget address                           rip>        ret
-        0x100
-        flag()
-```
+![](../../../.gitbook/assets/image%20%2822%29.png)
 
 On the _original_ `ret`, which we overwrite the return pointer for, we pop the gadget address in. Now `rip` moves to point to the gadget, and `rsp` moves to the next memory address.
 
-```text
-        <padding>                                     ## Gadget ##
-        gadget address                            rip>        pop rdi
-rsp>    0x100                                                 ret
-        flag()
-```
+![](../../../.gitbook/assets/image%20%2824%29.png)
 
 `rsp` moves to the `0x100`; `rip` to the `pop rdi`. Now when we pop, `0x100` gets moved into `rdi`.
 
-```text
-        <padding>                                     ## Gadget ##
-        gadget address                                        pop rdi
-        0x100                                      rip>       ret
-rsp>    flag()
-```
+![](../../../.gitbook/assets/image%20%2820%29.png)
 
 RSP moves onto the next items on the stack, the address of `flag()`. The `ret` is executed and `flag()` is called.
 
@@ -61,21 +40,11 @@ RSP moves onto the next items on the stack, the address of `flag()`. The `ret` i
 
 Essentially, if the gadget pops values from the stack, simply place those values afterwards \(including the `pop rip` in `ret`\). If we want to pop `0x10` into `rdi` and then jump to `0x16`, our payload would look like this:
 
-```text
-pop rdi; ret gadget                     < gadget address
-0x10                                    < value into rdi
-0x16                                    < value into rip
-```
+![](../../../.gitbook/assets/image%20%2823%29.png)
 
 Note if you have multiple `pop` instructions, you can just add more values.
 
-```text
-pop rdi; pop rsi; pop rdx; ret          <  gadget address
-0x10                                    <  value into rdi
-0x14                                    <  value into rsi
-0x18                                    <  value into rdx
-0x16                                    <  value into rip
-```
+![](../../../.gitbook/assets/image%20%2825%29.png)
 
 {% hint style="info" %}
 We use `rdi` as an example because, if you remember, that's the register for the first parameter in 64-bit. This means control of this register using this gadget is important.
