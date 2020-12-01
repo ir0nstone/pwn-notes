@@ -42,8 +42,6 @@ int main() {
 }
 ```
 
-I did actually have a working binary to show how to exploit this, but sadly got tripped up by the next protection so it might be a while.
-
 ### malloc\(\): memory corruption \(fast\)
 
 > When removing the chunk from a fastbin, make sure the size falls into the fastbin's range

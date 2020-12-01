@@ -51,7 +51,7 @@ strcpy(b, "\x78\x56\x34\x12");
 Now, the next alloc will return `a` **again**. This doesn't matter, we want the one afterwards.
 
 ```c
-malloc(0x20)                     /*This is yet another 'a', we can ignore this */
+malloc(0x20)                     /* This is yet another 'a', we can ignore this */
 char *controlled = malloc(0x20); /* This is in the location we want */
 ```
 
