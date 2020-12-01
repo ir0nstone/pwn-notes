@@ -49,8 +49,8 @@
     * [heap1](types/heap/heap-overflow/heap1.md)
   * [Use-After-Free](types/heap/use-after-free.md)
   * [Double-Free](types/heap/double-free/README.md)
-    * [Exploiting a Double-Free](types/heap/double-free/exploiting-a-double-free.md)
     * [Double-Free Protections](types/heap/double-free/double-free-protections.md)
+    * [Double-Free Exploit](types/heap/double-free/double-free-exploit.md)
   * [Unlink Exploit](types/heap/unlink-exploit.md)
 
 ## Other
