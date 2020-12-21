@@ -1,2 +1,2 @@
-# Unusual Techniques
+# Other Techniques
 
