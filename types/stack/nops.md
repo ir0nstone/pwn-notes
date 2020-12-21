@@ -9,7 +9,7 @@ NOP \(no operation\) instructions do exactly what they sound like: _nothing_. Wh
 In intel x86 assembly, NOP instructions are `\x90`.
 
 {% hint style="info" %}
-The NOP instruction actually stands for `XCHG EAX, EAX`, which does effectively nothing. You can read a bit more about it [on this StackOverflow question](https://stackoverflow.com/questions/25008772/whats-the-difference-between-the-x86-nop-and-fnop-instructions/25053039).
+The NOP instruction actually used to stand for `XCHG EAX, EAX`, which does effectively nothing. You can read a bit more about it [on this StackOverflow question](https://stackoverflow.com/questions/25008772/whats-the-difference-between-the-x86-nop-and-fnop-instructions/25053039).
 {% endhint %}
 
 ### Updating our Shellcode Exploit
