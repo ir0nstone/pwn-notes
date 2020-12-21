@@ -1,6 +1,6 @@
 # One Gadgets and Malloc Hook
 
-A `one_gadget` is simply an `execve("/bin/sh")` command; this can be a quick win with GOT overwrites. Next time the function is called, it pops a shell.
+A `one_gadget` is simply an `execve("/bin/sh")` command that is present in gLIBC, and this can be a quick win with GOT overwrites - next time the function is called, the `one_gadget` is executed and the shell is popped.
 
 `__malloc_hook` is a feature in C. The [Official GNU site](https://www.gnu.org/software/libc/manual/html_node/Hooks-for-Malloc.html) defines `__malloc_hook`  as:
 
