@@ -88,7 +88,7 @@ p.sendlineafter('RSP!\n', payload)
 p.interactive()
 ```
 
-The `10` is just a placeholder. Once we hit the `pause()`, we attach with radare2 and set a breakpoint on the `ret`, then continue. Once we hit it, we find the beginning of the `A` string and work out the offset - it's 128.
+The `10` is just a placeholder. Once we hit the `pause()`, we attach with radare2 and set a breakpoint on the `ret`, then continue. Once we hit it, we find the beginning of the `A` string and work out the offset between that and the current value of RSP - it's `128`!
 
 ### Solution
 
