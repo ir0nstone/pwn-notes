@@ -8,5 +8,5 @@ What this involves is storing _all_ the register values on the stack. Once the s
 
 ### Exploitation
 
-By leveraging a `sigreturn`, we can control _all register values at once_ - amazing! Yet this is also a drawback - we can't pick-and-choose registers, so if we don't have a stack leak it'll be hard to set registers like RSP to a workable value.
+By leveraging a `sigreturn`, we can control _all register values at once_ - amazing! Yet this is also a drawback - we can't pick-and-choose registers, so if we don't have a stack leak it'll be hard to set registers like RSP to a workable value. Nevertheless, this is a super powerful technique - especially with limited gadgets.
 

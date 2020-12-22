@@ -41,7 +41,7 @@
     * [Sigreturn-Oriented Programming \(SROP\)](types/stack/unusual-techniques/sigreturn-oriented-programming-srop/README.md)
       * [Using SROP](types/stack/unusual-techniques/sigreturn-oriented-programming-srop/using-srop.md)
     * [ret2reg](types/stack/unusual-techniques/ret2reg.md)
-    * [Untitled](types/stack/unusual-techniques/untitled.md)
+    * [ret2dlresolve](types/stack/unusual-techniques/untitled.md)
 * [Heap](types/heap/README.md)
   * [Introduction to the Heap](types/heap/introduction-to-the-heap.md)
   * [Chunks](types/heap/chunks/README.md)
