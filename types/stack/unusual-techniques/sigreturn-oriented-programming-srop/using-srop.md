@@ -92,7 +92,7 @@ p.sendline(payload)
 p.interactive()
 ```
 
-![Nailed it!](../../../../.gitbook/assets/image%20%2835%29.png)
+![Nailed it!](../../../../.gitbook/assets/image%20%2842%29.png)
 
 ### Final Exploit
 
