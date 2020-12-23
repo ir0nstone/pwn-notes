@@ -6,7 +6,7 @@ description: Controlling all register states
 
 ### Overview
 
-A **sigreturn** is a special type of [syscall](../../syscalls/). The purpose of sigreturn is to return from the **signal handler** and to clean up the stack frame after a signal has been unblocked.
+A **sigreturn** is a special type of [syscall](../). The purpose of sigreturn is to return from the **signal handler** and to clean up the stack frame after a signal has been unblocked.
 
 What this involves is storing _all_ the register values on the stack. Once the signal is unblocked, all the values are popped back in \(RSP points to the bottom of the **sigreturn frame**, this collection of register values\).
 

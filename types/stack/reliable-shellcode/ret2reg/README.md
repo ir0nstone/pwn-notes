@@ -4,7 +4,7 @@ description: Using Registers to bypass ASLR
 
 # ret2reg
 
-**ret2reg** simply involves jumping to register addresses rather than hardcoded addresses, much like [Using RSP for Shellcode](../../reliable-shellcode/using-rsp.md). For example, you may find RAX _always_ points at your buffer when the `ret` is executed, so you could utilise a `call rax` or `jmp rax` to continue from there.
+**ret2reg** simply involves jumping to register addresses rather than hardcoded addresses, much like [Using RSP for Shellcode](../using-rsp.md). For example, you may find RAX _always_ points at your buffer when the `ret` is executed, so you could utilise a `call rax` or `jmp rax` to continue from there.
 
 The reason RAX is the most common for this technique is that, by _convention_, the return value of a function is stored in RAX. For example, take the following basic code:
 

@@ -2,7 +2,7 @@
 
 ## Source
 
-As with the [syscalls](../../syscalls/exploitation-with-syscalls.md#the-source), I made the binary using the pwntools ELF features:
+As with the [syscalls](../exploitation-with-syscalls.md#the-source), I made the binary using the pwntools ELF features:
 
 ```python
 from pwn import *

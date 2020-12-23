@@ -16,11 +16,11 @@ Dynamically-linked ELF objects import `libc` functions when they are first calle
 For all these screenshots, I broke at `read@plt`. I'm using GDB with the `pwndbg` plugin as it shows it a bit better.
 {% endhint %}
 
-![](../../../../.gitbook/assets/image%20%2841%29.png)
+![](../../../.gitbook/assets/image%20%2841%29.png)
 
 The PLT jumps to wherever the GOT points. Originally, before the GOT is updated, it points back to the instruction after the `jmp` in the PLT to resolve it.
 
-![](../../../../.gitbook/assets/image%20%2835%29.png)
+![](../../../.gitbook/assets/image%20%2835%29.png)
 
 In order to resolve the functions, there are 3 structures that need to exist within the binary. Faking these 3 structures could enable us to trick the linker into resolving a function of our choice, and we can also pass parameters in \(such as `/bin/sh`\) once resolved.
 
@@ -79,7 +79,7 @@ Note the due to this the `R_SYM` of `gets` is `1` as `0x107 >> 8 = 1`.
 
 Much simpler - just a table of strings for the names.
 
-![0x0804825c is the location of STRTAB we got earlier](../../../../.gitbook/assets/image%20%2836%29.png)
+![0x0804825c is the location of STRTAB we got earlier](../../../.gitbook/assets/image%20%2836%29.png)
 
 ### SYMTAB
 
@@ -103,11 +103,11 @@ The most important value here is `st_name` as this gives the **offset in STRTAB 
 
 We now know we can get the `STRTAB` offset of the symbol's string using the `R_SYM` value we got from the `JMPREL`, combined with `SYMTAB`:
 
-![](../../../../.gitbook/assets/image%20%2840%29.png)
+![](../../../.gitbook/assets/image%20%2840%29.png)
 
 Here we're reading `SYMTAB + R_SYM * size (16)`, and it appears that the offset \(the `SYMTAB` `st_name` variable\) is `0x10`.
 
-![](../../../../.gitbook/assets/image%20%2844%29.png)
+![](../../../.gitbook/assets/image%20%2844%29.png)
 
 And if we read that offset on `STRTAB`, we get the symbol's name!
 
@@ -115,7 +115,7 @@ And if we read that offset on `STRTAB`, we get the symbol's name!
 
 Let's hop back to the GOT and PLT for a slightly more in-depth look.
 
-![](../../../../.gitbook/assets/image%20%2838%29.png)
+![](../../../.gitbook/assets/image%20%2838%29.png)
 
 If the GOT entry is unpopulated, we push the `reloc_offset` value and jump to the beginning of the `.plt` section. A few instructions later, the `dl-resolve()` function is called, with `reloc_offset` being one of the arguments. It then uses this `reloc_offset` to calculate the **relocation and symtab entries**.
 
