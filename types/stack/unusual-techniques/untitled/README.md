@@ -1,3 +1,7 @@
+---
+description: Resolving our own libc functions
+---
+
 # ret2dlresolve
 
 ## Broad Overview
