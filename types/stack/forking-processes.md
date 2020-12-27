@@ -12,5 +12,5 @@ This "shared" memory is interesting from an attacking point of view as it allows
 
 This allows us to bruteforce the RIP one byte at a time, essentially leaking PIE - and the same thing for canaries and RBP. 24 bytes of multithreaded bruteforce, and once you leak all of those you can bypass a canary, get a stack leak from RBP and PIE base from RIP.
 
-I won't be making a binary for this, but you can check out [ippsec's Rope writeup](https://www.youtube.com/watch?v=GTQxZlr5yvE) for HTB - Rope root was this exact technique.
+I won't be making a binary for this \(yet\), but you can check out [ippsec's Rope writeup](https://www.youtube.com/watch?v=GTQxZlr5yvE) for HTB - Rope root was this exact technique.
 
