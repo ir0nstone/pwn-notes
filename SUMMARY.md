@@ -48,6 +48,7 @@
     * [Exploit](types/stack/exploiting-over-sockets/exploit.md)
     * [Socat](types/stack/exploiting-over-sockets/socat.md)
   * [Forking Processes](types/stack/forking-processes.md)
+  * [Stack Pivoting](types/stack/stack-pivoting.md)
 * [Heap](types/heap/README.md)
   * [Introduction to the Heap](types/heap/introduction-to-the-heap.md)
   * [Chunks](types/heap/chunks/README.md)
