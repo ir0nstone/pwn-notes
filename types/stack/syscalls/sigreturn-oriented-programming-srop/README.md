@@ -1,5 +1,5 @@
 ---
-description: Controlling all register states
+description: Controlling all registers at once
 ---
 
 # Sigreturn-Oriented Programming \(SROP\)

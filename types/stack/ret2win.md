@@ -1,5 +1,5 @@
 ---
-description: One of the most basic binexp challenges of all
+description: The most basic binexp challenge
 ---
 
 # ret2win

@@ -1,3 +1,7 @@
+---
+description: Quick shells and pointers
+---
+
 # One Gadgets and Malloc Hook
 
 A `one_gadget` is simply an `execve("/bin/sh")` command that is present in gLIBC, and this can be a quick win with GOT overwrites - next time the function is called, the `one_gadget` is executed and the shell is popped.

@@ -1,3 +1,7 @@
+---
+description: 'Shellcode, but without the guesswork'
+---
+
 # Reliable Shellcode
 
 ## Utilising ROP

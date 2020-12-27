@@ -1,3 +1,7 @@
+---
+description: Interfacing directly with the kernel
+---
+
 # Syscalls
 
 ### Overview

@@ -1,3 +1,7 @@
+---
+description: Hijacking functions
+---
+
 # GOT Overwrite
 
 You may remember that the GOT stores the actual locations in `libc` of functions. Well, if we could overwrite an entry, we could gain code execution that way. Imagine the following code:
