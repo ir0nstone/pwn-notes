@@ -46,6 +46,7 @@
     * [Exploitation](types/stack/ret2csu/exploitation.md)
   * [Exploiting over Sockets](types/stack/exploiting-over-sockets/README.md)
     * [Exploit](types/stack/exploiting-over-sockets/exploit.md)
+    * [Socat](types/stack/exploiting-over-sockets/socat.md)
   * [Forking Processes](types/stack/forking-processes.md)
 * [Heap](types/heap/README.md)
   * [Introduction to the Heap](types/heap/introduction-to-the-heap.md)
