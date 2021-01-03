@@ -66,6 +66,9 @@
     * [Double-Free Protections](types/heap/double-free/double-free-protections.md)
     * [Double-Free Exploit](types/heap/double-free/double-free-exploit.md)
   * [Unlink Exploit](types/heap/unlink-exploit.md)
+* [Kernel](types/kernel/README.md)
+  * [Introduction](types/kernel/introduction.md)
+  * [Writing a Char Module](types/kernel/writing-a-char-module.md)
 
 ## Other
 
