@@ -1,6 +1,6 @@
 # Writing a Char Module
 
-## Writing
+## The Code
 
 Writing a Char Module is suprisingly simple. First, we specify what happens on `init` \(loading of the module\) and `exit` \(unloading of the module\). We need some special headers for this.
 
