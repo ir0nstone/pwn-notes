@@ -86,3 +86,9 @@ No need to worry about ASLR! Neither the stack nor libc is used, save for the RO
 
 The real problem would be if PIE was enabled, as then you couldn't call `gets` as the location of the PLT would be unknown without a leak - same problem with writing to the GOT.
 
+## Potential Problems
+
+Thank to **clubby789** and **Faith** from the HackTheBox Discord server, I found out that the GOT often has _Executable_ permissions simply because that's the default permissions when there's no NX. If you have a more recent kernel, such as `5.9.0`, the default is changed and the GOT will not have X permissions.
+
+As such, if your exploit is failing, run `uname -r` to grab the kernel version and check if it's `5.9.0`; if it is, you'll have to find another RWX region to place your shellcode \(if it exists!\).
+
