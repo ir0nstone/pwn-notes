@@ -88,7 +88,7 @@ The real problem would be if PIE was enabled, as then you couldn't call `gets` a
 
 ## Potential Problems
 
-Thank to **clubby789** and **Faith** from the HackTheBox Discord server, I found out that the GOT often has _Executable_ permissions simply because that's the default permissions when there's no NX. If you have a more recent kernel, such as `5.9.0`, the default is changed and the GOT will not have X permissions.
+Thank to [**clubby789** ](https://clubby789.me/)and [**Faith** ](https://faraz.faith/)from the HackTheBox Discord server, I found out that the GOT often has _Executable_ permissions simply because that's the default permissions when there's no NX. If you have a more recent kernel, such as `5.9.0`, the default is changed and the GOT will not have X permissions.
 
 As such, if your exploit is failing, run `uname -r` to grab the kernel version and check if it's `5.9.0`; if it is, you'll have to find another RWX region to place your shellcode \(if it exists!\).
 
