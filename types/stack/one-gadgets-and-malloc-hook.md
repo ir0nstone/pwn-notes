@@ -32,7 +32,7 @@ For most one\_gadgets, certain criteria have to be met. This means they won't al
 
 #### Triggering malloc\(\)
 
-Wait a sec - isn't `malloc()` a _heap_ function? How will we use it on the stack? Well, you can actually trigger `malloc` by calling `printf("%10000c")` \(this allocates too many bytes for the stack, forcing libc to allocate the space on the heap instead\). So, if you have a format string vulnerability, calling malloc is trivial.
+Wait a sec - isn't `malloc()` a _heap_ function? How will we use it on the stack? Well, you can actually trigger `malloc` by calling `printf("%10000$c")` \(this allocates too many bytes for the stack, forcing libc to allocate the space on the heap instead\). So, if you have a format string vulnerability, calling malloc is trivial.
 
 #### Practise
 
