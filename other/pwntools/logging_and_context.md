@@ -13,7 +13,7 @@ Logging is a very useful feature of pwntools that lets you know where in your co
 ### log.info\(text\)
 
 ```text
->>> log.info('Binary Base is at 0x08042200')
+>>> log.info('Binary Base is at 0x400000')
 [*] Binary Base is at 0x400000
 ```
 
@@ -27,8 +27,8 @@ Logging is a very useful feature of pwntools that lets you know where in your co
 ### log.error\(text\)
 
 ```text
->>> log.success('The payload is incorrectly formed.')
-[-] The payload is incorrectly formed.
+>>> log.success('The payload is too long')
+[-] The payload is too long
 ```
 
 ## Context
