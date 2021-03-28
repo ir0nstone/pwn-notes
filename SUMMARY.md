@@ -71,6 +71,7 @@
 * [Kernel](types/kernel/README.md)
   * [Introduction](types/kernel/introduction.md)
   * [Writing a Char Module](types/kernel/writing-a-char-module.md)
+  * [An Interactive Char Driver](types/kernel/a-communicatable-char-driver.md)
 
 ## Other
 
