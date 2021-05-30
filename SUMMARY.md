@@ -72,6 +72,7 @@
   * [Introduction](types/kernel/introduction.md)
   * [Writing a Char Module](types/kernel/writing-a-char-module.md)
   * [An Interactive Char Driver](types/kernel/a-communicatable-char-driver.md)
+  * [Interactivity with IOCTL](types/kernel/interactivity-with-ioctl.md)
 
 ## Other
 
