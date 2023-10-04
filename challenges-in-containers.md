@@ -122,7 +122,7 @@ Exiting
 But when connecting via shell and running, it worked:
 
 ```bash
-$ docker exec -it challenge/bin/bash
+$ docker exec -it challenge /bin/bash
 root@e2cd6b6e2e2c:/# gdbserver :9090 --attach $(pidof challenge)
 Attached; pid = 201
 Listening on port 9090
