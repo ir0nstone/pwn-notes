@@ -45,10 +45,8 @@ $ nc localhost 1337
 Don't end the process. Switch back to the Docker `root` shell:
 
 ```
-root@096c4ec3bca6:/# ps auxf
-USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-ctf           21  0.0  0.0  31612  3000 ?        S    11:55   0:00  \_ socat -dd TCP4-LISTEN:1337,fork,reuseaddr EXEC:/home/ctf/challenge,pty,echo=0,raw,iexten=0
-ctf           22  0.0  0.0   4528   212 ?        S    11:55   0:00      \_ /home/ctf/challenge
+root@096c4ec3bca6:/# pidof challenge
+22
 ```
 
 Grab the PID of the subprocess, in this case `22`.&#x20;
