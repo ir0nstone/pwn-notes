@@ -25,7 +25,7 @@
     * [PIE Bypass](types/stack/pie/pie-bypass.md)
   * [ASLR](types/stack/aslr/README.md)
     * [ASLR Bypass with Given Leak](types/stack/aslr/aslr-bypass-with-given-leak.md)
-    * [PLT and GOT](types/stack/aslr/plt_and_got.md)
+    * [PLT and GOT](types/stack/aslr/plt\_and\_got.md)
     * [ret2plt ASLR bypass](types/stack/aslr/ret2plt-aslr-bypass.md)
   * [GOT Overwrite](types/stack/got-overwrite/README.md)
     * [Exploiting a GOT overwrite](types/stack/got-overwrite/exploiting-a-got-overwrite.md)
@@ -38,7 +38,7 @@
   * [One Gadgets and Malloc Hook](types/stack/one-gadgets-and-malloc-hook.md)
   * [Syscalls](types/stack/syscalls/README.md)
     * [Exploitation with Syscalls](types/stack/syscalls/exploitation-with-syscalls.md)
-    * [Sigreturn-Oriented Programming \(SROP\)](types/stack/syscalls/sigreturn-oriented-programming-srop/README.md)
+    * [Sigreturn-Oriented Programming (SROP)](types/stack/syscalls/sigreturn-oriented-programming-srop/README.md)
       * [Using SROP](types/stack/syscalls/sigreturn-oriented-programming-srop/using-srop.md)
   * [ret2dlresolve](types/stack/ret2dlresolve/README.md)
     * [Exploitation](types/stack/ret2dlresolve/exploitation.md)
@@ -78,9 +78,12 @@
 
 * [pwntools](other/pwntools/README.md)
   * [Introduction](other/pwntools/introduction.md)
-  * [Processes and Communication](other/pwntools/processes_and_communication.md)
-  * [Logging and Context](other/pwntools/logging_and_context.md)
+  * [Processes and Communication](other/pwntools/processes\_and\_communication.md)
+  * [Logging and Context](other/pwntools/logging\_and\_context.md)
   * [Packing](other/pwntools/packing.md)
   * [ELF](other/pwntools/elf.md)
   * [ROP](other/pwntools/rop.md)
 
+***
+
+* [Challenges in Containers](challenges-in-containers.md)
