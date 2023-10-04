@@ -4,13 +4,42 @@ Sometimes you get challenges provided with a `Dockerfile`. In most cases, it's b
 
 Unfortunately, that can be rough. There are a few steps. In essence, we want to use `gdbserver` to set up a debug session, then connect to `gdbserver` from our host to leverage the full power of whatever we want to debug with. These steps work for debugging a binary hosted via `socat`.
 
-So, steps below:
+## Quick Copy
 
-## Install
+Add:
+
+```
+RUN apt-get install -y gdb gdbserver
+-p 9090:9090 --cap-add=SYS_PTRACE
+```
+
+Run:
+
+```
+docker exec -it challenge /bin/bash
+gdbserver :9090 --attach $(pidof challenge)
+```
+
+Connect:
+
+```
+r2 -d gdb://localhost:9090
+```
+
+OR
+
+```
+gdb challenge
+target remote :9090
+```
+
+## Explanation
+
+### Install
 
 Add some installs to the Dockerfile:
 
-```
+```docker
 RUN apt-get install -y gdb gdbserver
 ```
 
@@ -31,13 +60,13 @@ flags to the `docker run ...` command in `build_docker.sh`.
 
 Get a shell with `docker exec`:
 
-```
+```bash
 docker exec -it challenge /bin/bash
 ```
 
 Note that to get a binary started with `socat`, we have to connect to the service first in order to start a process. So, outside the container, connect with `nc`:
 
-```
+```bash
 $ nc localhost 1337
 <pwnable binary>
 ```
@@ -59,10 +88,15 @@ Now start a `gdbserver`:
 gdbserver :9090 --attach 22
 ```
 
+{% hint style="info" %}
+You can combine this into one command:\
+`gdbserver :9090 --attach $(pidof challenge)`
+{% endhint %}
+
 And on your host you can now connect to it with radare2 or GDB:
 
-```
-$ r2 -d gdb://:9090
+```bash
+$ r2 -d gdb://localhost:9090
 ```
 
 ```
@@ -75,4 +109,21 @@ Remote debugging using 172.17.0.2:9090
 
 And boom.
 
-Note the issue is that you have to restart gdbserver _every_ time you connect again, and then reconnect with radare2/GDB. Very unfun! Am hoping to streamline it a bit at some point.
+Note the issue is that you have to restart gdbserver _every_ time you connect again. Don't forget! Maybe there's a better way, but I don't know.
+
+Did try and replace the shell commands with a single `docker exec`, but for some reason it refused to work:
+
+```bash
+$ docker exec -it challenge gdbserver :9090 --attach $(pidof fancy_names)
+Cannot attach to process 7196: No such process (3)
+Exiting
+```
+
+But when connecting via shell and running, it worked:
+
+```bash
+$ docker exec -it fancy_names /bin/bash
+root@e2cd6b6e2e2c:/# gdbserver :9090 --attach $(pidof fancy_names)
+Attached; pid = 201
+Listening on port 9090
+```
