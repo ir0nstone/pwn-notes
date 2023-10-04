@@ -114,7 +114,7 @@ Note the issue is that you have to restart gdbserver _every_ time you connect ag
 Did try and replace the shell commands with a single `docker exec`, but for some reason it refused to work:
 
 ```bash
-$ docker exec -it challenge gdbserver :9090 --attach $(pidof fancy_names)
+$ docker exec -it challenge gdbserver :9090 --attach $(pidof challenge)
 Cannot attach to process 7196: No such process (3)
 Exiting
 ```
@@ -122,8 +122,10 @@ Exiting
 But when connecting via shell and running, it worked:
 
 ```bash
-$ docker exec -it fancy_names /bin/bash
-root@e2cd6b6e2e2c:/# gdbserver :9090 --attach $(pidof fancy_names)
+$ docker exec -it challenge/bin/bash
+root@e2cd6b6e2e2c:/# gdbserver :9090 --attach $(pidof challenge)
 Attached; pid = 201
 Listening on port 9090
 ```
+
+If anybody finds a fix, please let me know!
