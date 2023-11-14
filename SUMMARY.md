@@ -17,6 +17,7 @@
     * [Gadgets](types/stack/return-oriented-programming/gadgets.md)
     * [Exploiting Calling Conventions](types/stack/return-oriented-programming/exploiting-calling-conventions.md)
     * [ret2libc](types/stack/return-oriented-programming/ret2libc.md)
+    * [Stack Alignment](types/stack/return-oriented-programming/stack-alignment.md)
   * [Format String Bug](types/stack/format-string.md)
   * [Stack Canaries](types/stack/canaries.md)
   * [PIE](types/stack/pie/README.md)
