@@ -1,5 +1,4 @@
 ---
-layout: post
 tags: pwn
 categories: pwntools
 ---
@@ -24,15 +23,15 @@ p = remote('my.special.ip', port)
 
 The power of `pwntools` is incredibly simple communication with your processes.
 
-### p.send\(data\)
+### p.send(data)
 
 Sends `data` to the process. Data can either be a `string` or a `bytes-like object` - pwntools handles it all for you.
 
-### p.sendline\(data\)
+### p.sendline(data)
 
-Sends `data` to the process, followed by a **newline character** `\n`. Some programs require the `\n` to take in the input \(think about how you need to hit the enter key to send the data with `nc`\) while others don't.
+Sends `data` to the process, followed by a **newline character** `\n`. Some programs require the `\n` to take in the input (think about how you need to hit the enter key to send the data with `nc`) while others don't.
 
-`p.sendline(data)` is equivalent to `p.send(data + '\n')`  
+`p.sendline(data)` is equivalent to `p.send(data + '\n')`\
 
 
 {% hint style="danger" %}
@@ -41,25 +40,24 @@ An incorrect number of these may cause your exploit to stall when there's nothin
 
 ## Receiving Data From Processes
 
-### p.recv\(numb\)
+### p.recv(numb)
 
 Receives `numb` bytes from the process.
 
-### p.recvuntil\(delimiter, drop=False\)
+### p.recvuntil(delimiter, drop=False)
 
 Receives all the data until it encounters the `delimiter`, after which it returns the data. If `drop` is `True` then the returned data does not include the `delimiter`.
 
-### p.recvline\(keepends=True\)
+### p.recvline(keepends=True)
 
-Essentially equivalent to `p.recvuntil('\n', drop=keepends)`.  
- Receives up until a `\n` is reached, then returns the data including the `\n` if `keepends` is `True`.
+Essentially equivalent to `p.recvuntil('\n', drop=keepends)`.\
+&#x20;Receives up until a `\n` is reached, then returns the data including the `\n` if `keepends` is `True`.
 
-### p.clean\(timeout=0.02\)
+### p.clean(timeout=0.02)
 
 Receives **all** data for `timeout` seconds and returns it. Another similar function is `p.recvall()`, but this regularly takes far too long to execute so `p.clean()` is much better.
 
 ### Timeout
 
-All receiving functions all contain a `timeout` parameter as well as the other listed ones.  
- For example, `p.recv(numb=16, timeout=1)` will execute but if `numb` bytes are not received within `timeout` seconds the data is buffered for the next receiving function and an empty string `''` is returned.
-
+All receiving functions all contain a `timeout` parameter as well as the other listed ones.\
+&#x20;For example, `p.recv(numb=16, timeout=1)` will execute but if `numb` bytes are not received within `timeout` seconds the data is buffered for the next receiving function and an empty string `''` is returned.
