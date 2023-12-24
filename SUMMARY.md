@@ -74,6 +74,9 @@
   * [Writing a Char Module](types/kernel/writing-a-char-module.md)
   * [An Interactive Char Driver](types/kernel/a-communicatable-char-driver.md)
   * [Interactivity with IOCTL](types/kernel/interactivity-with-ioctl.md)
+* [Browser Exploitation](types/browser-exploitation/README.md)
+  * [\*CTF 2019 oob-v8](types/browser-exploitation/ctf-2019-oob-v8/README.md)
+    * [The Challenge](types/browser-exploitation/ctf-2019-oob-v8/the-challenge.md)
 
 ## Other
 
