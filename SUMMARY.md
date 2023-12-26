@@ -75,8 +75,9 @@
   * [An Interactive Char Driver](types/kernel/a-communicatable-char-driver.md)
   * [Interactivity with IOCTL](types/kernel/interactivity-with-ioctl.md)
 * [Browser Exploitation](types/browser-exploitation/README.md)
-  * [\*CTF 2019 oob-v8](types/browser-exploitation/ctf-2019-oob-v8/README.md)
+  * [\*CTF 2019 - oob-v8](types/browser-exploitation/ctf-2019-oob-v8/README.md)
     * [The Challenge](types/browser-exploitation/ctf-2019-oob-v8/the-challenge.md)
+  * [picoCTF 2021 - Kit Engine](types/browser-exploitation/picoctf-2021-kit-engine.md)
 
 ## Other
 
