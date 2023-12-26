@@ -78,6 +78,7 @@
   * [\*CTF 2019 - oob-v8](types/browser-exploitation/ctf-2019-oob-v8/README.md)
     * [The Challenge](types/browser-exploitation/ctf-2019-oob-v8/the-challenge.md)
   * [picoCTF 2021 - Kit Engine](types/browser-exploitation/picoctf-2021-kit-engine.md)
+  * [picoCTF 2021 - Download Horsepower](types/browser-exploitation/picoctf-2021-download-horsepower.md)
 
 ## Other
 
