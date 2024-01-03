@@ -57,20 +57,20 @@ It should break before `unsafe` is called; let's analyse the top of the stack no
 0xff984af0 0xf7efe000         [...]
 ```
 
-The first address, `0xff984af0`, is the position; the `0xf7efe000` is the value.&#x20;
+`pxw` tells r2 to analyse the hex as **words**, that is, 32-bit values. I only show the first value here, which is `0xf7efe000`. This value is stored at the top of the stack, as ESP points to the top of the stack - in this case, that is `0xff984af0`.
 
 {% hint style="info" %}
 Note that the value `0xf7efe000` is random - it's an artefact of previous processes that have used that part of the stack. The stack is never wiped, it's just marked as usable, so before data actually gets put there the value is completely dependent on your system.
 {% endhint %}
 
-Let's move one more instruction with `ds`, **d**ebug **s**tep, and check the stack again.
+Let's move one more instruction with `ds`, **d**ebug **s**tep, and check the stack again. This will execute the `call sym.unsafe` instruction.
 
 ```
 [0x08049172]> pxw @ esp
-0xff984aec  0x080491c0 0xf7efe000
+0xff984aec  0x080491c0 0xf7efe000 [...]
 ```
 
-Huh, something's been pushed onto the stack - the value `0x080491c0`. This looks like it's in the binary - but where?
+Huh, something's been pushed onto the top of the stack - the value `0x080491c0`. This looks like it's in the binary - but where? Let's look back at the disassembly from before:
 
 ```
 [...]
@@ -80,7 +80,7 @@ Huh, something's been pushed onto the stack - the value `0x080491c0`. This looks
 [...]
 ```
 
-Look at that - it's the instruction _after_ the call to `unsafe`. Why? This is how the program knows _where to return to after `unsafe()` has finished_.
+We can see that `0x080491c0` is the memory address of the instruction _after_ the call to `unsafe`. Why? This is how the program knows _where to return to after `unsafe()` has finished_.
 
 ## Weaknesses
 
