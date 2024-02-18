@@ -88,33 +88,14 @@ We then grab the solution as well as setting an `answer` array of the correct le
 ```python
 s.check()            # generate the model if it exists
 sol = s.model()      # grab the model  
-
-answer = [0] * 12
 ```
 
-The values returned by `sol` are not in the simplest form possible - we have to use `.as_long()` and various other methods - but we can extract the values for each index as so:
+The values returned by `sol` are not in the simplest form possible, but we can extract the values for each index as so:
 
 ```python
-# for each variable in the SMT
-for d in sol:
-    # grab the index is represents
-    idx = d.name()
-    idx = idx.replace("char", "")
-    idx = int(idx)
-
-    # grab its value
-    val = sol[d].as_long()
-    val = chr(val)
-
-    # and set the index in the `answer` string to be the value
-    answer[idx] = val
-```
-
-Finally, print the answer
-
-```python
-answer = ''.join(answer)
-print(answer)
+flag = [sol[f].as_long() for f in password]
+flag = ''.join(chr(c) for c in flag)
+print(flag)
 ```
 
 We get `0p3n_s3sam3!`
