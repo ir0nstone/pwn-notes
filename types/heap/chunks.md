@@ -1,47 +1,46 @@
 # Chunks
 
-A "chunk" is a **region of the heap**. 
+Internally, every chunk - whether allocated or free - is stored in a [`malloc_chunk` ](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L1136)structure. The difference is how the memory space is used.
 
-Each chunk contains **metadata** \(such as the size\) and the **data**.
+## Allocated Chunks
 
-When the programmer uses `malloc()`, a chunk is returned. The [general structure of a chunk ](https://code.woboq.org/userspace/glibc/malloc/malloc.c.html)is as follows:
+When space is allocated from the **heap** using a function such as `malloc()`, a pointer to a heap address is returned. Every chunk has additional **metadata** that it has to store in both its used and free states.
+
+![](<../../.gitbook/assets/image (9).png>)
+
+The chunk has two sections - the **metadata** of the chunk (information _about_ the chunk) and the **user data**, where the data is actually stored.
+
+The `size` field is the overall size of the chunk, **including metadata**. It must be a multiple of `8`, meaning the last 3 bits of the `size` are `0`. This allows the flags `A`, `M` and `P` to take up that space, with `M` being the 3rd-last bit of `size`, `A` the 2nd-last and `P` the last.
+
+The flags have special uses:
+
+* `P` is the [`PREV_INUSE` flag](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L1210), which is set when the previous adjacent chunk (the chunk ahead) is in use
+* `M` is the [`IS_MMAPPED` flag](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L1243), which is set when the chunk is allocated via `mmap()` rather than a heap mechanism such as `malloc()`
+* `A` is the [`NON_MAIN_ARENA` flag](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L1221), which is set when the chunk is not located in `main_arena`; we will get to _Arenas_ in a later section, but in essence every created thread is provided a different arena (up to a limit) and chunks in these arenas have the `A` bit set
+
+`prev_size` is set [if the previous adjacent chunk is **free**](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L1212), as calculated by `P` being `0`. If it is not, the heap _saves space_ and `prev_size` is part of the **previous chunk's user data**. If it is, then `prev_size` stores the size of the previous chunk.
+
+![](<../../.gitbook/assets/image (13).png>)
+
+## Free Chunks
+
+Free chunks have additional metadata to handle the linking between them.
+
+<figure><img src="../../.gitbook/assets/free_chunks.svg" alt=""><figcaption></figcaption></figure>
+
+This can be seen in the [`malloc_state`](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L1136) struct:
 
 ```c
 struct malloc_chunk {
   INTERNAL_SIZE_T      mchunk_prev_size;  /* Size of previous chunk (if free).  */
   INTERNAL_SIZE_T      mchunk_size;       /* Size in bytes, including overhead. */
+
   struct malloc_chunk* fd;         /* double links -- used only if free. */
   struct malloc_chunk* bk;
+
   /* Only used for large blocks: pointer to next larger size.  */
   struct malloc_chunk* fd_nextsize; /* double links -- used only if free. */
   struct malloc_chunk* bk_nextsize;
 };
 ```
-
-Also contained within the `mchunk_size` variable are the flags \(these 3 take up the last 3 bits, explaining why all chunk allocations are rounded to the nearest 8\):
-
-* P \(PREV\_INUSE\)
-  * `0` when the previous chunk in memory is free, meaning we can use `mchunk_prev_size` to calculate that chunk's size. If set, we cannot.
-* M \(IS\_MMAPPED\)
-  * Chunk is obtained using `mmap`, and these chunks are neither in an arena nor adjacent to a free chunk
-* A \(NON\_MAIN\_ARENA\)
-  * `0` if chunk is in main arena. Each spawned thread gains an arena and chunks there have this bit set.
-
-This looks very intimidating, but there are two main things to bear in mind.
-
-Firstly, the chunk is **not** just where your data gets stored. Every chunk contains **metadata** that describes the rest of the chunk, and its characteristics.
-
-Secondly, the chunk has different behaviour depending on _whether it is free or not_. This is important to understand for some attacks.
-
-Don't worry about the different variables - we'll cover what they are and their uses when they become relevant.
-
-### Other Chunks
-
-#### Top Chunk
-
-Border the top of the arena. When `malloc` is called, it is used as a last resort; if more space is required, the chunk can grow using the `sbrk` system call. `PREV_INUSE` always set for this chunk.
-
-#### Last Remainder Chunk
-
-Sometimes you have no free chunks of an exact size, but rather just larger; this chunk **splits** into two to service the `malloc` request. One part is returned to the user with the desired size, the other becomes the **Last Remainder Chunk**.
 
