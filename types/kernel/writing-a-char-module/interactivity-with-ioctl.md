@@ -32,3 +32,19 @@ To communicate with the driver in this case, you would use the `ioctl()` functio
 ioctl(fd, 0x100, 0x12345678);    // data is a string
 ```
 
+And you would have to update the `file_operations` struct:
+
+```c
+static struct file_operations fops = {
+    .ioctl = ioctl_handler
+};
+```
+
+On modern Linux kernel versions, [`.ioctl` has been removed and replaced by `.unlocked_ioctl` and `.compat_ioctl`](https://lwn.net/Articles/119652/). The former is the replacement for `.ioctl`, with the latter allowing 32-bit processes to perform `ioctl` calls on 64-bit systems. As a result, the new `file_operations` is likely to look more like this:
+
+```c
+static struct file_operations fops = {
+    .compat_ioctl = ioctl_handler,
+    .unlocked_ioctl = ioctl_handler
+};
+```

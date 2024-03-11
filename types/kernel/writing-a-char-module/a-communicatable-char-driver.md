@@ -164,7 +164,7 @@ module_exit(intro_exit);
 
 ```
 
-Simply use `sudo insmod` to load it, [as we did before](writing-a-char-module.md#using-the-kernel-module).
+Simply use `sudo insmod` to load it, [as we did before](./#using-the-kernel-module).
 
 ## Testing The Module
 
@@ -191,7 +191,7 @@ int main() {
 
 If the module is successfully loaded, the `read()` call should read `QWERTY` into `buffer`:
 
-```text
+```
 $ ./exploit
 
 FD: 3
@@ -200,4 +200,3 @@ QWERTY
 ```
 
 Success!
-
