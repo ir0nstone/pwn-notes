@@ -1,5 +1,5 @@
 ---
-description: 'http://exploit.education/phoenix/heap-zero/'
+description: http://exploit.education/phoenix/heap-zero/
 ---
 
 # heap0
@@ -73,7 +73,7 @@ The weakness here is clear - it runs a random address on the heap. Our input is 
 
 Let's check out the heap in normal conditions.
 
-```text
+```
 $ r2 -d -A heap0 AAAAAAAAAAAA            <== that's just a parameter
 $ s main; pdf
 [...]
@@ -84,19 +84,19 @@ $ s main; pdf
 
 We'll break right after the strcpy and see how it looks.
 
-```text
+```
 [0x004006f8]> db 0x00400762
 [0x004006f8]> dc
 hit breakpoint at: 0x400762
 ```
 
-![The Expected Two Chunks](../../../.gitbook/assets/image%20%285%29.png)
+![The Expected Two Chunks](<../../../.gitbook/assets/image (5).png>)
 
 If we want, we can check the contents.
 
-![Chunk with our input](../../../.gitbook/assets/image%20%282%29.png)
+![Chunk with our input](<../../../.gitbook/assets/image (2) (1).png>)
 
-![The Chunk with the Function Address](../../../.gitbook/assets/image%20%283%29.png)
+![The Chunk with the Function Address](<../../../.gitbook/assets/image (3).png>)
 
 So, we can see that the function address is there, after our input in memory. Let's work out the offset.
 
@@ -104,41 +104,41 @@ So, we can see that the function address is there, after our input in memory. Le
 
 Since we want to work out how many characters we need until the pointer, I'll just use a [De Bruijn Sequence](../../stack/de-bruijn-sequences.md).
 
-```text
+```
 $ ragg2 -P 200 -r
 ```
 
-```text
+```
 $ r2 -d -A heap0 AAABAACAADAAE...
 ```
 
 Let's break **on** and **after** the `strcpy`. That way we can check the location of the pointer then immediately read it and calculate the offset.
 
-```text
+```
 [0x004006f8]> db 0x0040075d
 [0x004006f8]> db 0x00400762
 [0x004006f8]> dc
 hit breakpoint at: 0x40075d
 ```
 
-![The chunk before the strcpy](../../../.gitbook/assets/image.png)
+![The chunk before the strcpy](<../../../.gitbook/assets/image (2).png>)
 
 So, the chunk with the pointer is located at `0x2493060`. Let's continue until the next breakpoint.
 
-```text
+```
 [0x0040075d]> dc
 hit breakpoint at: 0x400762
 ```
 
-![Corrupted](../../../.gitbook/assets/image%20%281%29.png)
+![Corrupted](<../../../.gitbook/assets/image (1).png>)
 
 radare2 is nice enough to tell us we corrupted the data. Let's analyse the chunk again.
 
-![](../../../.gitbook/assets/image%20%284%29.png)
+![](<../../../.gitbook/assets/image (4).png>)
 
-Notice we overwrote the `size` field, so the chunk is much bigger. But now we can easily use the first value to work out the offset \(we could also, knowing the location, have done `pxq @ 0x02493060`\).
+Notice we overwrote the `size` field, so the chunk is much bigger. But now we can easily use the first value to work out the offset (we could also, knowing the location, have done `pxq @ 0x02493060`).
 
-```text
+```
 [0x00400762]> wopO 0x6441416341416241
 80
 ```
@@ -162,4 +162,3 @@ print(p.clean().decode('latin-1'))
 {% hint style="info" %}
 We need to remove the null bytes because `argv` doesn't allow them
 {% endhint %}
-
