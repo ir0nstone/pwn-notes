@@ -103,9 +103,9 @@ Iterates through each entry, calls it `tmp` and compares it to `e`. If equal, it
 You can think of the `key` as an effectively random value (due to ASLR) that gets checked against, and if it's the correct value then something is suspicious.
 {% endhint %}
 
-So, what can we do against this? Well, the `tcache_perthread_struct` is always the first chunk allocated on the heap, so it's always located at `heap + 0x10` (due to chunk metadata). A heap leak is therefore enough to bypass this protection!
+So, what can we do against this? Well, this protection doesn't affect us _that_ much - it stops a simple double-free, but if we have any kind of UAF primitive we can easily overwrite `e->key`. Even with a single byte, we still have a 255/256 chance of overwriting it to something that doesn't match `key`. Creating fake tcache chunks doesn't matter either, as even in the latest glibc version there is [no `key` check in `tcache_get()`](https://elixir.bootlin.com/glibc/glibc-2.39/source/malloc/malloc.c#L3174), meaning tcache poisoning is still doable.
 
-Note that creating fake overlapping chunks to control `fd` is **not** affected by this as glibc only checks if the address is exactly identical.
+In fact, the `key` can even be **helpful** for us - the `fd` pointer of the tcache chunk is mangled, so a UAF does not guarantee a heap leak. The `key` field is not mangled, so if we can leak the location of `tcache_perthread_struct` instead, this gives us a heap leak as it is always located at `heap_base + 0x10`.
 
 ***
 
@@ -150,4 +150,4 @@ It attempts to call `__getrandom()`, which is defined as a stub [here](https://e
 
 > The value of tcache\_key does not really have to be a cryptographically secure random number.  It only needs to be arbitrary enough so that it does not collide with values present in applications.  \[...]
 
-This means that a heap leak is **no longer enough** to bypass the protection - we need to leak the random value itself if we intend to do a double-free. Creating fake overlapping chunks to control `fd` is still **not** affected.
+This isn't a huge change - it's still only straight double-frees that are affected. We can no longer leak the heap via the `key`, however.
