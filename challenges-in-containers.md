@@ -121,7 +121,7 @@ And boom.
 
 Note the issue is that you have to restart gdbserver _every_ time you connect again. Don't forget! Maybe there's a better way, but I don't know.
 
-Did try and replace the shell commands with a single `docker exec`, but for some reason it refused to work:
+Did try and replace the shell commands with a single `docker exec`, but the `$()` is resolved before it is piped to the Docker:
 
 ```bash
 $ docker exec -it challenge gdbserver :9090 --attach $(pidof challenge)
