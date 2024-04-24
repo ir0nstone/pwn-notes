@@ -8,27 +8,29 @@ Unfortunately, that can be rough. There are a few steps. In essence, we want to 
 
 Add:
 
-```
-RUN apt-get install -y gdb gdbserver
+<pre class="language-docker"><code class="lang-docker">RUN apt-get install -y gdb gdbserver
+<strong> -- OR --
+</strong>RUN apk add gdb
+
 -p 9090:9090 --cap-add=SYS_PTRACE
-```
+</code></pre>
 
 Run:
 
-```
+```bash
 docker exec -it challenge /bin/bash
 gdbserver :9090 --attach $(pidof challenge)
 ```
 
 Connect:
 
-```
+```bash
 r2 -d gdb://localhost:9090
 ```
 
 OR
 
-```
+```bash
 gdb challenge
 target remote :9090
 ```
@@ -42,6 +44,14 @@ Add some installs to the Dockerfile:
 ```docker
 RUN apt-get install -y gdb gdbserver
 ```
+
+If the Dockerfile is an alpine image, instead use
+
+```docker
+RUN apk add gdb
+```
+
+`gdbserver` is automatically installed as part of the package.
 
 ## Change Run Command in build\_docker.sh
 
