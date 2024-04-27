@@ -93,6 +93,7 @@
   * [Packing](other/pwntools/packing.md)
   * [ELF](other/pwntools/elf.md)
   * [ROP](other/pwntools/rop.md)
+* [scanf Bypasses](other/scanf-bypasses.md)
 
 ***
 
