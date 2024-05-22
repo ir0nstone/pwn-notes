@@ -10,7 +10,15 @@ Why do we care? Well, UAFs and the like are very _nice_ to have, but a Read-Afte
 
 If we free enough adjacent fastbin chunks at once and trigger a call to `malloc_consolidate()`, they will consolidate to create a chunk that goes to the unsorted bin. The unsorted bin is doubly-linked, and acts accordingly - if it is the only element in the list, both `fd` and `bk` will point to a location in `malloc_state`,  which is contained within libc.
 
-This means that the more important thing for us to know is _how_ we can trigger a largebin consolidation. By checking the calls to the function in [`malloc.c`](https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c) (2.35), we can check.
+This means that the more important thing for us to know is _how_ we can trigger a largebin consolidation.
+
+Some of the most important ways include:
+
+* Inputting a very long number into `scanf` (around `0x400` characters long)
+  * This works because the code responsible for it manages a `scratch_buffer` and assigns it `0x400` bytes, but uses `malloc` when the data is too big (along with `realloc` if it gets even bigger than the heap chunk, and `free` at the end, so it works to trigger those functions too - great for triggering hooks!).
+* Inputting something along the lines of `%10000c` into a format string vulnerability also triggers a chunk to be created
+
+Both of these work because a **largebin allocation triggers** `malloc_consolidate`.By checking the calls to the function in [`malloc.c`](https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c) (2.35), we can find other triggers.
 
 {% hint style="info" %}
 It's possible for earlier or later glibc versions to have a greater or lesser number of calls to a specific function, so make sure to check for your version! You may find another way exists.
@@ -32,8 +40,6 @@ else
       malloc_consolidate (av);
   }
 ```
-
-This is especially useful because a huge `printf` format string can trigger a largebin request! This is because `printf` will allocate a buffer onder the hood, and if you use something like `%10000c` as a format string then a largebin will be allocated.
 
 There is another call to it in the section [`use_top`](https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L4353). This section is called when the top chunk has to be used to service the request. The [first `if` condition](https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L4375) checks if the top chunk is large enough to service the request:
 
