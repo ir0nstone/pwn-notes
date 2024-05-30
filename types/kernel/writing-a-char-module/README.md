@@ -40,10 +40,16 @@ Compiling a Kernel Object can seem a little more complex as we use a [`Makefile`
 obj-m += intro.o
  
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	$(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 ```
 
-We use `make` to compile the module. The files produced are defined at the top as `obj-m`. Note that compilation is **unique per kernel**, which is why the compiling process uses your unique kernel build section.
+`$(MAKE)` is a special flag that effectively calls `make`, but it propagate all same flags that _our_ `Makefile` was called with. So, for example, if we call
+
+```bash
+$ make -j 8
+```
+
+Then `$(MAKE)` will become `make -j 8`. Essentially, `$(MAKE)` is `make`, which compiles the module. The files produced are defined at the top as `obj-m`. Note that compilation is **unique per kernel**, which is why the compiling process uses your unique kernel build section.
 
 ## Using the Kernel Module
 

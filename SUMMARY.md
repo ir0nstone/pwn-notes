@@ -80,6 +80,7 @@
     * [An Interactive Char Driver](types/kernel/writing-a-char-module/a-communicatable-char-driver.md)
     * [Interactivity with IOCTL](types/kernel/writing-a-char-module/interactivity-with-ioctl.md)
   * [A Basic Kernel Interaction Challenge](types/kernel/a-basic-kernel-interaction-challenge.md)
+  * [Compiling, Customising and booting the Kernel](types/kernel/compiling-customising-and-booting-the-kernel.md)
   * [Double-Fetch](types/kernel/double-fetch.md)
 * [Browser Exploitation](types/browser-exploitation/README.md)
   * [\*CTF 2019 - oob-v8](types/browser-exploitation/ctf-2019-oob-v8/README.md)
