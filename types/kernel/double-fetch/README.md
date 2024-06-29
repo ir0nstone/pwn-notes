@@ -10,7 +10,7 @@ A **double-fetch** vulnerability is when data is accessed from userspace multipl
 
 Let's start with a convoluted example, where all we want to do is change the `id` that the module stores. We are not allowed to set it to `0`, as that is the ID of `root`, but all other values are allowed.
 
-The code below will be the contents of the `read()` function of a kernel. I've removed [the boilerplate code mentioned previously](writing-a-char-module/a-communicatable-char-driver.md), but here are the relevant parts:
+The code below will be the contents of the `read()` function of a kernel. I've removed [the boilerplate code mentioned previously](../writing-a-char-module/a-communicatable-char-driver.md), but here are the relevant parts:
 
 ```c
 #define PASSWORD    "p4ssw0rd"
@@ -78,7 +78,7 @@ int main() {
     creds.id = 900;
     strcpy(creds.password, "p4ssw0rd");
 
-    int res_id = write(fd, &creds, 9);
+    int res_id = write(fd, &creds, 0);    // last parameter here makes no difference
     printf("New ID: %d\n", res_id);
 
     return 0;
@@ -103,7 +103,7 @@ That all works fine.
 
 ## Exploiting a Double-Fetch and Switching to ID 0
 
-{% file src="../../.gitbook/assets/double_fetch_sleep.zip" %}
+{% file src="../../../.gitbook/assets/double_fetch_sleep.zip" %}
 
 The flaw here is that `creds->id` is **dereferenced twice**. What does this mean? The kernel module is passed a **reference** to a `Credentials` struct:
 
@@ -146,7 +146,7 @@ Here's the plan, visually, if it helps:
 
 
 
-<figure><img src="../../.gitbook/assets/double_fetch_id (1).svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/double_fetch_id (1).svg" alt=""><figcaption></figcaption></figure>
 
 In the waiting period, we swap out the `id`.
 
@@ -197,7 +197,7 @@ int main() {
 
     // now we write the cred struct to the module
     // it should be swapped after about .3 seconds by switcher
-    int res_id = write(fd, &creds, 9);
+    int res_id = write(fd, &creds, 0);
 
     // write returns the id we switched to
     // if all goes well, that is 0

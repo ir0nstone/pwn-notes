@@ -298,7 +298,7 @@ user:x:1000:
 
 ### Loading the Kernel Module
 
-The final step is, of course, the loading of the kernel module. I will be using the module from my [Double Fetch](double-fetch.md) section for this step.
+The final step is, of course, the loading of the kernel module. I will be using the module from my [Double Fetch](double-fetch/) section for this step.
 
 First, we copy the `.ko` file to the filesystem root. Then we modify the `init` script to load it, and also set the UID of the loaded shell to `1000` (so we are not root!).
 
@@ -323,4 +323,22 @@ Here I am assuming that the major number of the `double_fetch` module is `253`.
 Why am I doing that?
 
 If we load into a shell and run `cat /proc/devices`, we can see that `double_fetch` is loaded with major number `253` every time. I can't find any way to load this in _without_ guessing the major number, so we're sticking with this for now - please get in touch if you find one!
+{% endhint %}
+
+## Compiling a Different Kernel Version
+
+If we want to compile a kernel version that is **not** the latest, we'll dump all the [tags](https://github.com/torvalds/linux/tags):
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ git fetch --tags
+</strong></code></pre>
+
+It takes ages to run, naturally. Once we do that, we can check out a specific version of choice:
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ git checkout v5.11
+</strong></code></pre>
+
+We then continue from there.
+
+{% hint style="danger" %}
+Some tags seem to not have the correct header files for compilation. Others, weirdly,  compile kernels that build, but then never load in QEMU. I'm not quite sure why, to be frank.
 {% endhint %}
