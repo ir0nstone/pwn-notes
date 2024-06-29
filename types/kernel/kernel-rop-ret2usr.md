@@ -203,8 +203,8 @@ We have successfully exploited a ret2usr!
 
 How exactly does the above assembly code restore registers, and why does it return us to user space? To understand this, we have to know what [all of the registers](https://www.sciencedirect.com/topics/computer-science/segment-register) do. The switch to kernel mode is best explained by [a literal StackOverflow post](https://stackoverflow.com/questions/2479118/cpu-switches-from-user-mode-to-kernel-mode-what-exactly-does-it-do-how-does-i), or [another one](https://stackoverflow.com/questions/5223813/how-does-the-kernel-know-if-the-cpu-is-in-user-mode-or-kenel-mode).
 
-* [GS - limited segmentation, often holding a base address to a structure containing per-CPU data](https://wiki.osdev.org/SWAPGS)
-  * Has to vary between user space and kernel space
+* [GS - limited segmentation](https://wiki.osdev.org/SWAPGS). The [contents of the GS register are swapped one of the MSRs](https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/linux-kernel-rop-ropping-your-way-to-part-2/) (model-specific registers); at the entry to a kernel-space routine, `swapgs` enables the process to obtain a pointer to kernel data structures.
+  * Has to swap back to user space
 * SS - Stack Segment
   * Defines where the stack is stored
   * Must be reverted back to the userland stack
