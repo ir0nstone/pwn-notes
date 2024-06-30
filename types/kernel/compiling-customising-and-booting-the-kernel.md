@@ -236,6 +236,12 @@ find . -not -name *.cpio | cpio -o -H newc > initramfs.cpio
 * You can even compress the filesystem to a `.cpio.gz` file, which QEMU also recognises
 {% endhint %}
 
+If we want to extract the `cpio` archive (say, during a CTF) we can use this command:
+
+```bash
+$ cpio -i -F initramfs.cpio
+```
+
 ### Loading it with QEMU
 
 Put `bzImage` and `initramfs.cpio` into the same folder. Write a short `run.sh` script that loads QEMU:

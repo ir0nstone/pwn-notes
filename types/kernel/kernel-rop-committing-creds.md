@@ -1,2 +1,0 @@
-# Kernel ROP - Committing Creds
-
