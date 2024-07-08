@@ -115,3 +115,4 @@
 * [Challenges in Containers](challenges-in-containers.md)
 * [Reverse Engineering ARM](reverse-engineering-arm.md)
 * [Using Z3](using-z3.md)
+* [Cross-Compiling for arm32](cross-compiling-for-arm32.md)
