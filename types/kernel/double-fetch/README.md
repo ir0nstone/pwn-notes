@@ -151,7 +151,7 @@ Here's the plan, visually, if it helps:
 In the waiting period, we swap out the `id`.
 
 {% hint style="info" %}
-If you are trying to compile your own kernel, this will **only** work if you have `CONFIG_SMP` enabled, because we need to modify it in a different thread! Additionaly, you need QEMU to have the flag `-smp cores=2` (or more), though it may default to having multiple even without the flag.
+If you are trying to compile your own kernel, you need `CONFIG_SMP` enabled, because we need to modify it in a different thread! Additionally, you need QEMU to have the flag `-smp 2` (or more) to enable 2 cores, though it may default to having multiple even without the flag. This example may work without SMP, but that's because of the sleep - when we most onto part 2, with no sleep, we require multiple cores.
 
 The C program will hang on `write` until the kernel module returns, so we can't use the main thread.
 {% endhint %}
