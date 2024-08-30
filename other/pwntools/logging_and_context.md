@@ -23,10 +23,10 @@ Logging is a very useful feature of pwntools that lets you know where in your co
 [+] ASLR bypassed! Libc base is at 0xf7653000
 ```
 
-### log.error(text)
+### log.failure(text)
 
 ```
->>> log.success('The payload is too long')
+>>> log.failure('The payload is too long')
 [-] The payload is too long
 ```
 
