@@ -37,7 +37,7 @@ class std::string
     {
         size_t allocated_len;
         char local_buf[8];
-    }
+    };
 };
 ```
 
