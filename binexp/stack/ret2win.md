@@ -63,7 +63,7 @@ And that makes it much easier.
 
 ### Putting it Together
 
-Now we know the padding and the value, let's exploit the binary! We can use [`pwntools`](https://github.com/Gallopsled/pwntools) to interface with the binary (check out the [pwntools posts](../../other/pwntools/) for a more in-depth look).
+Now we know the padding and the value, let's exploit the binary! We can use [`pwntools`](https://github.com/Gallopsled/pwntools) to interface with the binary (check out the [pwntools posts](../../misc/pwntools/) for a more in-depth look).
 
 ```python
 from pwn import *        # This is how we import pwntools
