@@ -45,6 +45,7 @@
     * [Exploitation](binexp/stack/ret2dlresolve/exploitation.md)
   * [ret2csu](binexp/stack/ret2csu/README.md)
     * [Exploitation](binexp/stack/ret2csu/exploitation.md)
+    * [CSU Hardening](binexp/stack/ret2csu/csu-hardening.md)
   * [Exploiting over Sockets](binexp/stack/exploiting-over-sockets/README.md)
     * [Exploit](binexp/stack/exploiting-over-sockets/exploit.md)
     * [Socat](binexp/stack/exploiting-over-sockets/socat.md)
