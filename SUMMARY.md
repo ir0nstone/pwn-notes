@@ -102,6 +102,7 @@
 ## Reverse Engineering <a href="#rev" id="rev"></a>
 
 * [Strings in C++](rev/strings-in-c++.md)
+* [C++ Decompilation Tricks](rev/c++-decompilation-tricks.md)
 * [Reverse Engineering ARM](rev/reverse-engineering-arm.md)
 
 ## Miscellaneous <a href="#misc" id="misc"></a>
