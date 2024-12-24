@@ -143,7 +143,6 @@
 * [Using Z3](misc/using-z3.md)
 * [Cross-Compiling for arm32](misc/cross-compiling-for-arm32.md)
 
-* [Writeups](README.md)
 * [picoGym](picogym/README.md)
   * [Cryptography](picogym/cryptography/README.md)
     * [Mod 26](picogym/cryptography/mod-26.md)
