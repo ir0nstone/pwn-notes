@@ -6,7 +6,7 @@ description: The numbers... what do they mean?
 
 We get a bit of an image:
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 The `{}` suggest that this is some sort of transposition, where letters are replaced with numbers while other characters are left the same. Since all the numbers are in the range `0-25`, it makes logical sense that each number is really the position of the letter in the alphabet. We can make a simple decryption script based off this assumption:
 

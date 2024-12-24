@@ -37,7 +37,7 @@ result_img.save("output.png")
 
 This came up with an interesting `output.png`, which definitely had the flag in it, but was quite hard to read:
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Clearly a flag, but hard to read</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Clearly a flag, but hard to read</p></figcaption></figure>
 
 After some trial and error and printing of the values, you notice that pretty much everywhere is pure white. To up the contrast a little, we make all the white into black:
 
@@ -48,7 +48,7 @@ if xor_r == xor_g == xor_b == 255:
 
 And this was enough to spy the flag:
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ```
 picoCTF{d562333d}

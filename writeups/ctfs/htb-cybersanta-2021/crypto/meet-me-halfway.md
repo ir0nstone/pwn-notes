@@ -14,7 +14,7 @@ We are given `challenge.py`, which does the following:
 * Encrypts the flag with Key1 using AES-ECB
 * Encrypts the _encrypted_ flag with Key2 using AES-ECB
 
-We can use a **meet-in-the-middle** attack to retreive both keys. The logic here is simple. Firstly, there are `16` possible characters for each of the 4 random bytes, which is easily bruteforceable     ($$16^4$$).
+We can use a **meet-in-the-middle** attack to retreive both keys. The logic here is simple. Firstly, there are `16` possible characters for each of the 4 random bytes, which is easily bruteforceable ($$16^4$$).
 
 We can also encrypt a given input and get the result - I choose to send `12345678` as the hex-encoded plaintext and receive . For these keys, the encrypted flag is given as:
 
@@ -26,7 +26,7 @@ We can also encrypt a given input and get the result - I choose to send `1234567
 
 Now we have a known plaintext and ciphertext, we can use both one after the other and bruteforce possible keys. Note that the encryption looks like this:
 
-![The Encryption Method](<../../../.gitbook/assets/double\_aes (1).png>)
+![The Encryption Method](../../../../.gitbook/assets/double_aes%20\(1\).png)
 
 We do not know what the intermediate value `x` is, but we can use brute force to calculate it by
 
