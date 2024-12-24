@@ -30,7 +30,7 @@ It appears to be running `Apache` on `Ubuntu`, including a webserber titled _Is 
 
 A quick look on the IP gives us a basic page. It appears to be an application that checks for you whether or not a website it up:
 
-<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 We can see at the bottom that `siteisup.htb` is the domain, so we add it to `/etc/hosts`. The website we are served, however, is still the same.
 
@@ -38,7 +38,7 @@ We can see at the bottom that `siteisup.htb` is the domain, so we add it to `/et
 
 I listen with `sudo nc -nvlp 80` but if we put in our IP, we get an interesting message:
 
-<figure><img src="../../.gitbook/assets/image (38).png" alt=""><figcaption><p>Hacking attempt was detected !</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (38).png" alt=""><figcaption><p>Hacking attempt was detected !</p></figcaption></figure>
 
 If we put in `http://` it works, though. There is probably some check to detect the protocol the request uses. It does appear to just be a GET request
 
@@ -57,11 +57,11 @@ Accept: */*
 
 Nothing of note here, except confirmation that the domain is `siteisup.htb`. On the website there is a massive delay and it says it's down:
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption><p>It's down</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>It's down</p></figcaption></figure>
 
 This makes sense as we are not sending a response, so it has no way of telling. If we instead serve port 80 with a python `SimpleHTTPServer`, which has a response, we are told it's up:
 
-<figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
 There is once again no additional data:
 
@@ -76,7 +76,7 @@ If we turn on `Debug Mode`, the website prints out the headers and the HTML data
 We can also realise that we can use `http://127.0.0.1` as input so SSRF could be possible. If we try and use other wrappers like `file://` or `php://` then it breaks and we get the **Hacking attempt was detected !** message again.
 
 {% hint style="info" %}
-It's not _all_ wrappers that get blocked, as ippsec showed in [his video](https://www.youtube.com/watch?v=yW\_lxWB1Yd0), as `ftp` and `gopher` both work fine.
+It's not _all_ wrappers that get blocked, as ippsec showed in [his video](https://www.youtube.com/watch?v=yW_lxWB1Yd0), as `ftp` and `gopher` both work fine.
 {% endhint %}
 
 ### Gobuster
@@ -89,7 +89,7 @@ $ gobuster dir -u siteisup.htb -w /tools/SecLists/Discovery/Web-Content/raft-lar
 
 Gobuster detects that there is a `/dev` directory! This looks like the only useful thing it finds, as basically everything else is status code `403`. Connection to `/dev` just loads up a blank page with no information.
 
-But what if we bruteforce under `/dev`? In fact, we hit the jackpot - there's a `.git` directory!&#x20;
+But what if we bruteforce under `/dev`? In fact, we hit the jackpot - there's a `.git` directory!
 
 ## Git
 
@@ -168,7 +168,7 @@ Allow from env=Required-Header
 
 This tells us there is a special header that needs to be set called `Special-Dev` with the value `only4dev`. COnsidering the description of the commit is `New technique in header to protect our dev vhost` and `dev.siteisup.htb` is Forbidden, it's likely for that. We can check using BurpSuite:
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 And it looks like it is!
 
@@ -176,11 +176,11 @@ And it looks like it is!
 
 To make it easier for us, we're gonna get BurpSuite to add the header for us with its proxy (thanks to ippsec for this!). We can go to `Match and Replace` under Proxy Options:
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 And we can access it successfully in the browser:
 
-<figure><img src="../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
 Fiddling around with the website, we realise it reflects the git repository perfectly - the hyperlink for the Admin Page adds `?page=admin` to the request, which then spits out the contents of `admin.php`. Clearly, the LFI works.
 
@@ -281,7 +281,7 @@ $ sudo nc -nvlp 80
 
 And now if we run over to `uploads` we can see the file!
 
-<figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
 We can actually also add the `-k` flag to the above `nc` command to keep the listening persist over multiple connections. I'll have this running in the background while I tinker with what can be done.
 
@@ -305,11 +305,11 @@ $ zip test.phar test.php
 
 The upload works! Let's try and access the file itself. In BurpSuite, we'll use Repeater to query for the file. Note that **the server appends the `.php` for us - that's half the reason we have to do it this way**! So don't include the extension in the `page` parameter.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 It worked! Now let's do a crazier command, like `system("ls")`:
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
 Huh, it's an **Internal Server Error**. Considering that the previous attempt worked well, chances are [some PHP functions are disabled](https://www.php.net/manual/en/ini.core.php#ini.disable-functions). This is done using `disabled_functions`, and we can check by running `phpinfo()`, so let's do that:
 
@@ -319,7 +319,7 @@ disable_functions:
 pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,error_log,system,exec,shell_exec,popen,passthru,link,symlink,syslog,ld,mail,stream_socket_sendto,dl,stream_socket_client,fsockopen
 ```
 
-There are a **lot** of disabled functions, but one that is not disabled is `proc_open()`. This can be found using the tool [dfunc-bypasser](https://github.com/teambi0s/dfunc-bypasser), as recommended by [ippsec](https://www.youtube.com/watch?v=yW\_lxWB1Yd0) and [0xdf](https://0xdf.gitlab.io/2023/01/21/htb-updown.html#devsiteisuphtb). A `proc_open()` reverse shell can be pretty simple:
+There are a **lot** of disabled functions, but one that is not disabled is `proc_open()`. This can be found using the tool [dfunc-bypasser](https://github.com/teambi0s/dfunc-bypasser), as recommended by [ippsec](https://www.youtube.com/watch?v=yW_lxWB1Yd0) and [0xdf](https://0xdf.gitlab.io/2023/01/21/htb-updown.html#devsiteisuphtb). A `proc_open()` reverse shell can be pretty simple:
 
 ```php
 <?php
@@ -336,7 +336,7 @@ There are a **lot** of disabled functions, but one that is not disabled is `proc
 
 A basic reverse shell to port 4000. Let's do the exact same thing and pray it works.
 
-<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 Which it does! We upgrade the shell quickly using
 
@@ -407,7 +407,7 @@ User developer may run the following commands on localhost:
     (ALL) NOPASSWD: /usr/local/bin/easy_install
 ```
 
-We have `sudo` permissions to run `easy_install`. We can use[ GTFOBins to find an easy sudo privesc for `easy_install`](https://gtfobins.github.io/gtfobins/easy\_install/):
+We have `sudo` permissions to run `easy_install`. We can use[ GTFOBins to find an easy sudo privesc for `easy_install`](https://gtfobins.github.io/gtfobins/easy_install/):
 
 ```
 developer@updown:~$ cd /tmp/

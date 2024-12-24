@@ -4,7 +4,7 @@
 
 When we start the instance, we are met with an options menu:
 
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../../../.gitbook/assets/image (2).png>)
 
 It appears as if we can input the IP, which is then pinged. Let's imagine for a second how this could be implemented on the server side. A common trap developers can fall into is doing something like:
 

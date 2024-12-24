@@ -24,11 +24,11 @@ We see port 22 with SSH and port 80 with HTTP. Let's check the HTTP.
 
 We're greeted with a strange message:
 
-![The Message](<../../.gitbook/assets/image (45).png>)
+![The Message](<../../../../.gitbook/assets/image (45).png>)
 
 It seems as if our job is to find the "backdoor" into the system. The source has nothing particularly interesting, except for a comment:
 
-![The Comment](<../../.gitbook/assets/image (37).png>)
+![The Comment](<../../../../.gitbook/assets/image (37).png>)
 
 If we google this comment we come across an interesting [GitHub repo](https://github.com/TheBinitGhimire/Web-Shells) with a collection of reverse shells. Let's put their names in a file called `wordlist.txt` and run `gobuster`:
 
@@ -61,11 +61,11 @@ $ gobuster dir -u http://10.10.10.181/ -w wordlist.txt -t 50
 
 It appears as if `smevk.php` is on the target! Let's head over to http://10.10.10.181/smevk.php and we what happens.
 
-![The Webshell](<../../.gitbook/assets/image (4).png>)
+![The Webshell](<../../../../.gitbook/assets/image (4).png>)
 
 It definitely exists! The [repo ](https://github.com/TheBinitGhimire/Web-Shells/blob/master/smevk.php)tells us the default credentials are `admin:admin`.
 
-![Yes, it's pretty hideous](<../../.gitbook/assets/image (7).png>)
+![Yes, it's pretty hideous](<../../../../.gitbook/assets/image (7).png>)
 
 ## Foothold
 
@@ -188,7 +188,7 @@ ssh -i traceback sysadmin@10.10.10.181
 
 ### Finding the Vulnerability
 
-To perform some automated privesc recon, I'm going to run [`linpeas`](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite).  Port it over by hosting it on a python SimpleHTPServer:
+To perform some automated privesc recon, I'm going to run [`linpeas`](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite). Port it over by hosting it on a python SimpleHTPServer:
 
 ```
 $ sudo python3 -m http.server 80
@@ -204,7 +204,7 @@ Then `chmod`, run and analyse the output.
 
 Something that **really** sticks out is this:
 
-![GROUP Writeable Files](<../../.gitbook/assets/image (44).png>)
+![GROUP Writeable Files](<../../../../.gitbook/assets/image (44).png>)
 
 These scripts get run **every time someone logs in with SSH**. If we can modify them (which we can), they will run whatever we modify them to. The important part here is [**they get run as root**](http://manpages.ubuntu.com/manpages/xenial/man5/update-motd.5.html).
 
@@ -242,4 +242,3 @@ root@traceback:/# cat /root/root.txt
 cat /root/root.txt
 e68...
 ```
-

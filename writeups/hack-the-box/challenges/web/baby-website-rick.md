@@ -2,7 +2,7 @@
 
 ## Analysis
 
-![](<../../.gitbook/assets/image (6).png>)
+![](<../../../../.gitbook/assets/image (6).png>)
 
 All the references to **pickles** implies it's an **insecure deserialization** challenge. [`pickle`](https://docs.python.org/3/library/pickle.html) is a serialization format used in python.
 
@@ -135,7 +135,7 @@ b'KGRwMApWc2VydW0KcDEKY3Bvc2l4CnN5c3RlbQpwMgooVndob2FtaQpwMwp0cDQKUnA1CnMu'
 
 Let's change the cookie to this (without the `b''`):
 
-![](<../../.gitbook/assets/image (15).png>)
+![](<../../../../.gitbook/assets/image (15).png>)
 
 As you can see now, the value `0` was returned. This is the return value of `os.system`! Now we simply need to find a function that returns the result, and we'll use `subprocess.check_output` for that.
 
@@ -156,7 +156,7 @@ KGRwMApTJ3NlcnVtJwpwMQpjc3VicHJvY2VzcwpjaGVja19vdXRwdXQKcDIKKChscDMKUydscycKcDQK
 
 And input it as the cookie.
 
-![](<../../.gitbook/assets/image (43).png>)
+![](<../../../../.gitbook/assets/image (43).png>)
 
 As can now see that there is a `flag_wIp1b` file, so we can just read it!
 
@@ -179,6 +179,6 @@ KGRwMApTJ3NlcnVtJwpwMQpjc3VicHJvY2VzcwpjaGVja19vdXRwdXQKcDIKKChscDMKUydjYXQnCnA0
 
 And boom - we get the flag!
 
-![](<../../.gitbook/assets/image (33).png>)
+![](<../../../../.gitbook/assets/image (33).png>)
 
 `HTB{g00d_j0b_m0rty...n0w_I_h4v3_to_g0_to_f4m1ly_th3r4py..}`

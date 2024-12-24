@@ -4,11 +4,11 @@
 
 First we're met with a signin form:
 
-![](<../../.gitbook/assets/image (21).png>)
+![](<../../../../.gitbook/assets/image (21).png>)
 
 Let's try some default creds, `admin` and `admin`.
 
-![The Query](<../../.gitbook/assets/image (16).png>)
+![The Query](<../../../../.gitbook/assets/image (16).png>)
 
 Below, the query run on the database is shown; this seems like a clear example of **SQL injection**.
 
@@ -48,7 +48,7 @@ select * from users where username = 'admin' OR 1=1;-- AND password = 'password'
 
 As you can see, the `username` will always be correct due to the `1=1` and the password check is commented out! Let's try it.
 
-![](<../../.gitbook/assets/image (18).png>)
+![](<../../../../.gitbook/assets/image (18).png>)
 
 We still have to input a password because some javascript checks to make sure it's there, but we can fill that with any rubbish. And we get the flag!
 

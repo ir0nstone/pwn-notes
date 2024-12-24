@@ -8,7 +8,7 @@ description: SQL Injection, Hash Length Extension, LFI and binary exploitation
 
 Intense is definitely the best box I have ever done on HTB, and I loved it every step of the way. We start by doing some general tampering on the website and, combined with source code analysis, we find an SQL injection vulnerability. As there is no controllable output, we can execute a boolean-based blind SQL injection attack and extract the `secret` character by character.
 
-The hash is not crackable, but rather used to sign a custom JWT token to prove it's authentic. The hashing algorithm in use is vulnerable to a [Hash Length Extension](https://en.wikipedia.org/wiki/Length\_extension\_attack) attack, which allows us to append our own data to the hash and sign in as the `admin`. More source code analysis reveals admins have access to an API vulnerable to LFI.
+The hash is not crackable, but rather used to sign a custom JWT token to prove it's authentic. The hashing algorithm in use is vulnerable to a [Hash Length Extension](https://en.wikipedia.org/wiki/Length_extension_attack) attack, which allows us to append our own data to the hash and sign in as the `admin`. More source code analysis reveals admins have access to an API vulnerable to LFI.
 
 Using the LFI we can grab an SNMP Read-Write Community string, which we can [leverage for RCE](https://mogwailabs.de/en/blog/2019/10/abusing-linux-snmp-for-rce/). From here we exploit a vulnerable binary run by root to gain root access.
 
@@ -33,7 +33,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ### HTTP
 
-![](<../../.gitbook/assets/image (31).png>)
+![](<../../../../.gitbook/assets/image (31).png>)
 
 Couple things to note right away:
 
@@ -99,7 +99,7 @@ If we use the _Send Message_ feature of the website, our data gets parsed immedi
 
 Note how the function returns the SQLite error if there is one, meaning we should get some feedback:
 
-![](<../../.gitbook/assets/image (34).png>)
+![](<../../../../.gitbook/assets/image (34).png>)
 
 Now we know there is some SQL injection involved, let's think about what we need to extract. In `utils.py`, we see that there's a `try_login` function:
 
@@ -293,7 +293,7 @@ dXNlcm5hbWU9Z3Vlc3Q7c2VjcmV0PTg0OTgzYzYwZjdkYWFkYzFjYjg2OTg2MjFmODAyYzBkOWY5YTNj
 
 Updating it in `Inspect Element` works!
 
-![We're now an admin](<../../.gitbook/assets/image (29).png>)
+![We're now an admin](<../../../../.gitbook/assets/image (29).png>)
 
 ## Analysing the Source as Admin
 
@@ -608,7 +608,7 @@ addrs = [u64(leaks[addr:addr+8]) for addr in range(0, len(leaks), 8)]
 
 Now we've successfully leaked, we can parse the values. Using radare2 and breaking on the `ret`, the offset between the leaked RIP value there and binary base is `0xf54`:
 
-![](<../../.gitbook/assets/image (17).png>)
+![](<../../../../.gitbook/assets/image (17).png>)
 
 ```python
 leaks = read()[1032:]

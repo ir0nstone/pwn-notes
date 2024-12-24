@@ -27,13 +27,11 @@ Only ports `22` and `80`. Add `magic.htb` to your `/etc/hosts` and let's check o
 
 ### HTTP
 
-![The Main Page](<../../.gitbook/assets/image (32).png>)
+![The Main Page](<../../../../.gitbook/assets/image (32).png>)
 
 There's definitely a lot going on. By analysing the source we can see some images are in the `images/uploads/` folder, which is useful for later. Let's click the `Login` button at the bottom left.
 
-&#x20;
-
-![](<../../.gitbook/assets/image (42).png>)
+![](<../../../../.gitbook/assets/image (42).png>)
 
 First thing's first, let's try the default `admin:admin`. We get told it's invalid.
 
@@ -45,8 +43,8 @@ If we try a basic payload such as `admin'#`, what happens? The logic here is it 
 SELECT * FROM users WHERE username = 'admin'#' AND PASSWORD = ''
 ```
 
-![SQL Injection Check](<../../.gitbook/assets/image (14).png>)
+![SQL Injection Check](<../../../../.gitbook/assets/image (14).png>)
 
-![The Next Page](<../../.gitbook/assets/image (20).png>)
+![The Next Page](<../../../../.gitbook/assets/image (20).png>)
 
 Success!

@@ -101,7 +101,7 @@ read(*(void **)(&CHUNKLIST + index * 8), size);
 
 Remember that `strlen()` stops at a **null byte**. If we completely fill up our buffer the first time we allocate, there are **no null bytes there**. Instead, we will continue into the `size` field of the next chunk.
 
-![Chunk 1's data is right up against Chunk 2's size field](<../../../.gitbook/assets/image (30).png>)
+![Chunk 1's data is right up against Chunk 2's size field](<../../../../../.gitbook/assets/image (30).png>)
 
 Provided the `size` field is greater than `0x0` - which is will be - `strlen()` will interpret it as **part of the string**. That only gives us an overflow of one or two bytes.
 
